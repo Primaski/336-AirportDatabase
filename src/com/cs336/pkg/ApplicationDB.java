@@ -5,15 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ApplicationDB {
-	
-	public ApplicationDB(){
-		
-	}
 
 	public Connection getConnection(){
 		
 		//Create a connection string
-		String connectionUrl = "http://ec2-18-218-4-251.us-east-2.compute.amazonaws.com:8080/TravelDB";
+		String connectionUrl = "jdbc:mysql://summercs336.ch54a1ii8pba.us-east-2.rds.amazonaws.com:3306/TravelDB";
 		Connection connection = null;
 		
 		try {
