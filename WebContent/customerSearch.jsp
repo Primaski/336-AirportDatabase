@@ -23,7 +23,7 @@
 		while(airports.next()){
 			out.println("<option>" + airports.getString(1) + ", " + airports.getString(2) + "</option>");
 		}
-		airports.beforeFirst(); 
+		airports.beforeFirst();//hi
 		out.println("</select> <br/>"); 
 		
 		
@@ -41,12 +41,12 @@
 			+ "size = \"2\" type = \"number\" onkeypress=\"return isNo(event)\"/>");
 		out.println("<br/>(* Month, Day)<br/>");
 		
-		out.println("<b>Arrival Date:</b><br/>");
+		/*out.println("<b>Arrival Date:</b><br/>");
 		out.println("<input name = \"arrivemonth\" maxlength ="
 			+ "\"2\" size = \"2\" type = \"number\" onkeypress=\"return isNo(event)\"/>");
 		out.println("<input name = \"arriveday\" maxlength = \"2\"" 
 			+ "size = \"2\" type = \"number\" onkeypress=\"return isNo(event)\"/>");
-		out.println("<br/>(* Month, Day)<br/>");
+		out.println("<br/>(* Month, Day)<br/>");*/
 		
 		out.print("<b>Airline:</b><br/>");
 		out.print("<select name=\"airline\">");

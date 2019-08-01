@@ -21,22 +21,96 @@
 			String arriveAirport = request.getParameter("to");
 			String departMo = request.getParameter("departmonth");
 			String departDay = request.getParameter("departday");
-			String arriveMonth = request.getParameter("arrivemonth");
-			String arriveDay = request.getParameter("arriveday");
+			/*String arriveMonth = request.getParameter("arrivemonth");
+			String arriveDay = request.getParameter("arriveday");*/
 			String airline = request.getParameter("airline");
 			String price = request.getParameter("price");
 			String sortBy = request.getParameter("sort");
 			
+			String[] departAirCityState = departAirport.split(", ");
+			String[] arriveAirCityState = arriveAirport.split(", ");
+			
+			//out.print(departAirport + arriveAirport + departMo + departDay + airline + price + sortBy);
 			
 			
-			out.print(departAirport + arriveAirport + departMo + departDay + arriveMonth + arriveDay + 
-					airline + price + sortBy);
+			//Arrival and departure are necessary, this parses the "City, State" into 2 distinct columns,
+			//and searches the four columns corresponding to Departure and Arrival. This will be added to the query.
+			String arrival = "arrCity = '" + arriveAirCityState[0] + 
+					"' and arrState = '" + arriveAirCityState[1] + "'" ;
+			String departure = " and depCity = '" + departAirCityState[0] + "' and " +
+				       "depState = '" + departAirCityState[1] + "'";
 			
 			
-			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-			String str = "SELECT * FROM Aircrafts";
+			//First optional parameter is departing date. If blank, "" will be added instead of a parameter
+			String date = "";
+			try{
+			date = ((departMo.equals("") || departMo == null) || 
+					(departDay.equals("") || departMo == null)) ? "" : 
+					" and depTime like '2019-" + 
+					String.format("%02d", Integer.parseInt(departMo)) + "-" + 
+					String.format("%02d", Integer.parseInt(departDay))  + "%'";
+			out.println("Date: " + date + "\n\n\n");
+			}catch (Exception e){
+				out.println(e.toString());
+				return;
+			}
+			
+			
+			//Second optional parameter is price. Economy price is expected always to be the lowest, and so
+			//if the price maximum is less than the economy, then it will also be less for all others. Thus,
+			//we need only to search for economy (since the type of booking is on the BOOK page)
+			String priceMax = "";
+			try{
+				priceMax = (price == null || price.equals("")) ? "" :
+					" and economyPrice <= " + price;
+			}catch(Exception e){
+				out.println(e.toString());
+				return;
+			}
+			
+			//Third optional parameter is airline. We use the airline display name.
+			String reqAirline = "";
+			try{
+				reqAirline = (airline.equals("No Preference")) ? "" :
+					" and airlineDisplayName = '" + airline + "'";
+			}catch(Exception e){
+				out.println(e.toString());
+				return;
+			}
+			
+			//Sort by - required, default is price
+			String sort = "";
+			Map<String,String> orderOptions = new HashMap<String,String>(){{
+				put("Price (default)","economyPrice asc");
+				put("Takeoff Time", "depTime asc");
+				put("Takeoff Time (desc.)", "depTime desc");
+				put("Landing Time", "arrTime asc");
+				put("Landing Time (desc.)", "depTime desc");
+			}};
+			sort = orderOptions.get(sortBy);
+			
+			//QUERY TO BE SUBMITTED -
+			//uses the flights View - this table merges Flights, Airports, ArrivesAt, DepartsFrom & Airlines.
+			String query = "SELECT * " +
+			"FROM  FlightsExpanded " + 
+			"WHERE  " + arrival +
+					    departure +
+					    date +
+					    priceMax +
+					    reqAirline +
+			"ORDER BY " + sort;
+			
+			//out.println(query);
+				   
 			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
+			ResultSet result = stmt.executeQuery(query);
+			if(result.next() == false){
+				out.println("Result set is empty.");
+			}else{
+				do{
+					out.println(result.getString(1) + "--->" + result.getString(3) + " TO " + result.getString(4) + "<br/>");
+				}while(result.next());
+			}
 			con.close();
 			
 			/*
