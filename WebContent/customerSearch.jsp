@@ -97,7 +97,7 @@
 			}
 		}catch(Exception e){
 				out.println("I GOT AN ERROR");
-				e.printStackTrace();
+				ea.printStackTrace();
 			}
 		-->
 		

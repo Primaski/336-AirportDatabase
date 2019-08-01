@@ -100,7 +100,7 @@
 					    reqAirline +
 			"ORDER BY " + sort;
 			
-			//out.println(query);
+			//aout.println(query);
 				   
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(query);
