@@ -11,6 +11,7 @@
 	<%
 		String userid = request.getParameter("username");
 		String pwd = request.getParameter("password");
+		String myUserRole;
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection(
 				"jdbc:mysql://summercs336.ch54a1ii8pba.us-east-2.rds.amazonaws.com:3306/TravelDB", "sqlAdmin",
@@ -19,10 +20,31 @@
 		ResultSet rs;
 		rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd + "'");
 		if (rs.next()) {
-			session.setAttribute("user", userid); // the username will be stored in the session
-			out.println("welcome " + userid);
-			out.println("<a href='logout.jsp'>Log out</a>");
-			response.sendRedirect("success.jsp");
+
+			myUserRole = rs.getString("userRole");
+
+			if (myUserRole.equals("Admin")) {
+				session.setAttribute("user", userid); // the username will be stored in the session
+				out.println("welcome " + userid);
+				out.println("<a href='logout.jsp'>Log out</a>");
+				response.sendRedirect("adminIndex.jsp");
+			} else if (myUserRole.equals("Customer")) {
+				session.setAttribute("user", userid); // the username will be stored in the session
+				out.println("welcome " + userid);
+				out.println("<a href='logout.jsp'>Log out</a>");
+				response.sendRedirect("index.jsp");
+			} else if (myUserRole.equals("Customer Rep")) {
+				session.setAttribute("user", userid); // the username will be stored in the session
+				out.println("welcome " + userid);
+				out.println("<a href='logout.jsp'>Log out</a>");
+				response.sendRedirect("customerRepIndex.jsp");
+			} else {
+
+				session.setAttribute("user", userid); // the username will be stored in the session
+				out.println("welcome " + userid);
+				out.println("<a href='logout.jsp'>Log out</a>");
+				response.sendRedirect("success.jsp");
+			}
 		} else {
 			out.println("Invalid password <a href='login.jsp'>try again</a>");
 		}
