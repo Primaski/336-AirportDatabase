@@ -7,26 +7,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Remaining Aircrafts</title>
-</head><head><title>Remaining Aircrafts</title></head>
+<title>Remaining Airports</title>
+</head><head><title>Flight Search</title></head>
 	<body>
-	<h1><b>Remaining Aircrafts</b></h1>
+	<h1><b>Remaining Airports</b></h1>
 
 	<%
 		try {
 			ApplicationDB db = new ApplicationDB();
 			Connection con = db.getConnection();
-			String delAircraft = request.getParameter("toBeDel");
-			String delQuery="delete  from Aircrafts where Tailnumber = '"+ delAircraft + "'";
+			String delAirport = request.getParameter("toBeDel");
+			String delQuery="delete  from Airports where AirportCode = '"+ delAirport + "'";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(delQuery);
-			String query="Select * from Aircrafts";
+			String query="Select * from Airports";
 			ResultSet result = stmt.executeQuery(query);
 			if(result.next() == false){
 				out.println("Result set is empty.");
 			}else{
 				do{
-					out.println(result.getString(1) + "  		   Model:   		  " + result.getString(2) + "  		   Color:  		   " + result.getString(3) +"			Airline:		 " +result.getString(4)+ "<br/>");
+					out.println(result.getString(1) + ":     " + result.getString(2) + " Located at " + result.getString(3) +", " +result.getString(4) +", " + result.getString(5)+" "+  result.getString(7)+" " + result.getString(6)+ "<br/>");
 				}while(result.next());
 			}
 			con.close();
@@ -37,6 +37,7 @@
 			out.print(e);
 		}
 	%>
-
+<br />
+	<a href="manageAirports.jsp">Return to Airports Menu</a>
 </body>
 </html>
