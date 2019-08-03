@@ -32,7 +32,7 @@
 				session.setAttribute("user", userid); // the username will be stored in the session
 				out.println("welcome " + userid);
 				out.println("<a href='logout.jsp'>Log out</a>");
-				response.sendRedirect("index.jsp");
+				response.sendRedirect("customerIndex.jsp");
 			} else if (myUserRole.equals("Customer Rep")) {
 				session.setAttribute("user", userid); // the username will be stored in the session
 				out.println("welcome " + userid);
