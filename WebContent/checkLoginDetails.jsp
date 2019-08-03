@@ -20,33 +20,36 @@
 		ResultSet rs;
 		rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd + "'");
 		if (rs.next()) {
+			try{
+				myUserRole = rs.getString("userRole");
 
-			myUserRole = rs.getString("userRole");
+				if (myUserRole.equals("Admin")) {
+					session.setAttribute("user", userid); // the username will be stored in the session
+					out.println("welcome " + userid);
+					out.println("<a href='logout.jsp'>Log out</a>");
+					response.sendRedirect("Admin/adminIndex.jsp");
+				} else if (myUserRole.equals("Customer")) {
+					session.setAttribute("user", userid); // the username will be stored in the session
+					out.println("welcome " + userid);
+					out.println("<a href='logout.jsp'>Log out</a>");
+					response.sendRedirect("Customer/customerIndex.jsp");
+				} else if (myUserRole.equals("Customer Rep")) {
+					session.setAttribute("user", userid); // the username will be stored in the session
+					out.println("welcome " + userid);
+					out.println("<a href='logout.jsp'>Log out</a>");
+					response.sendRedirect("CustomerRep/customerRepIndex.jsp");
+				} else {
 
-			if (myUserRole.equals("Admin")) {
-				session.setAttribute("user", userid); // the username will be stored in the session
-				out.println("welcome " + userid);
-				out.println("<a href='logout.jsp'>Log out</a>");
-				response.sendRedirect("adminIndex.jsp");
-			} else if (myUserRole.equals("Customer")) {
-				session.setAttribute("user", userid); // the username will be stored in the session
-				out.println("welcome " + userid);
-				out.println("<a href='logout.jsp'>Log out</a>");
-				response.sendRedirect("customerIndex.jsp");
-			} else if (myUserRole.equals("Customer Rep")) {
-				session.setAttribute("user", userid); // the username will be stored in the session
-				out.println("welcome " + userid);
-				out.println("<a href='logout.jsp'>Log out</a>");
-				response.sendRedirect("customerRepIndex.jsp");
-			} else {
-
-				session.setAttribute("user", userid); // the username will be stored in the session
-				out.println("welcome " + userid);
-				out.println("<a href='logout.jsp'>Log out</a>");
-				response.sendRedirect("success.jsp");
+					session.setAttribute("user", userid); // the username will be stored in the session
+					out.println("welcome " + userid);
+					out.println("<a href='logout.jsp'>Log out</a>");
+					response.sendRedirect("success.jsp");
+				}
+			}catch (Exception e){
+				e.printStackTrace();
 			}
 		} else {
-			out.println("Invalid password <a href='login.jsp'>try again</a>");
+			out.println("Invalid username or password <a href='login.jsp'>try again</a>");
 		}
 	%>
 

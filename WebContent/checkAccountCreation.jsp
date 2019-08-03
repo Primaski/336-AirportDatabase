@@ -51,7 +51,8 @@
 				out.println("<a href=\"createaccount.jsp\">Try Again</a>");
 				return;
 			}
-			int rowsModified = st.executeUpdate("insert into users values ('" +
+			int rowsModified = st.executeUpdate("insert into users "
+					+ "(username, password, address, city, state, zip, email, firstName, lastName, userRole) values ('" +
 			  userid + "','" +
 			  pwd  + "','" +
 			  address  + "','" +
@@ -60,7 +61,8 @@
 			  zip  + "','" +
 			  email  + "','" +
 			  firstName  + "','" +
-			  lastName  + "')");
+			  lastName  + "','" +
+			  "Customer')");
 			if(rowsModified != 0){
 				out.println("Successfully created " + userid + "'s account! Please log in.");
 			}else{
