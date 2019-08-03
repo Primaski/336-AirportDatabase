@@ -64,6 +64,11 @@
 		out.println("<input name=\"price\" placeholder=\"Any\" maxlength = \"4\" type=\"number\" " + 
 			"onkeypress=\"return isNo(event)\"/><br/>");
 		
+		out.print("<b>Max. number of stops:</b><br/>");
+		out.println("<input name=\"stops\" placeholder=\"Any\" maxlength = \"1\" type=\"number\" " + 
+			"onkeypress=\"return isNo(event)\"/><br/>");
+		out.println("Default: 1 (non-connecting)<br/>");
+		
 		out.print("<b>Sort by:</b><br/>");
 		out.print("<select name=\"sort\">");
 		out.print("<option>Price (default)</option>" +

@@ -24,6 +24,7 @@
 			/*String arriveMonth = request.getParameter("arrivemonth");
 			String arriveDay = request.getParameter("arriveday");*/
 			String airline = request.getParameter("airline");
+			String stops = request.getParameter("stops");
 			String price = request.getParameter("price");
 			String sortBy = request.getParameter("sort");
 			
@@ -46,7 +47,7 @@
 			try{
 			date = ((departMo.equals("") || departMo == null) || 
 					(departDay.equals("") || departMo == null)) ? "" : 
-					" and depTime like '2019-" + 
+					" and departDate like '2019-" + 
 					String.format("%02d", Integer.parseInt(departMo)) + "-" + 
 					String.format("%02d", Integer.parseInt(departDay))  + "%'";
 			out.println("Date: " + date + "\n\n\n");
@@ -78,14 +79,24 @@
 				return;
 			}
 			
+			//Fourth optional parameter is maximum number of stops.
+			String stopso = "";
+			try{
+				stopso = (stops == null || stops.equals("")) ? "" :
+					" and noOfStops <= '" + stops + "'";
+			}catch(Exception e){
+				out.println(e.toString());
+				return;
+			}
+			
 			//Sort by - required, default is price
 			String sort = "";
 			Map<String,String> orderOptions = new HashMap<String,String>(){{
 				put("Price (default)","economyPrice asc");
-				put("Takeoff Time", "depTime asc");
-				put("Takeoff Time (desc.)", "depTime desc");
-				put("Landing Time", "arrTime asc");
-				put("Landing Time (desc.)", "depTime desc");
+				put("Takeoff Time", "departDate asc, departTime asc");
+				put("Takeoff Time (desc.)", "departDate desc, departTime desc");
+				put("Landing Time", "arriveTime asc");
+				put("Landing Time (desc.)", "arriveTime desc");
 			}};
 			sort = orderOptions.get(sortBy);
 			
@@ -98,19 +109,53 @@
 					    date +
 					    priceMax +
 					    reqAirline +
+					    stopso +
 			"ORDER BY " + sort;
 			
 			//aout.println(query);
 				   
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(query);
-			if(result.next() == false){
-				out.println("Result set is empty.");
-			}else{
-				do{
-					out.println(result.getString(1) + "--->" + result.getString(3) + " TO " + result.getString(4) + "<br/>");
-				}while(result.next());
+			
+			if(!result.next()){
+				out.println("<h1>Oh no!</h1> " +
+			"<h3>No results matched your query. Try narrowing down your search</h3>");
+				out.println("<a href = \"customerSearch.jsp\">Back to Search!</a>");
+				return;
 			}
+			
+			out.println("<h1>Results matching your criteria:</h1><br><br>");
+			out.println("<table border = \"1\">");
+			out.println("<tr>");
+			out.println("<th>Departing From</th>");
+			out.println("<th>On</th>");
+			out.println("<th>At</th>");
+			out.println("<th>Arriving At</th>");
+			out.println("<th>On</th>");
+			out.println("<th>At</th>");
+			out.println("<th>Airline</th>");
+			out.println("<th>Econ. Price</th>");
+			out.println("<th>Stops</th>");
+			out.println("<th>-----</th>");
+			out.println("</tr>");
+			
+			String[] columns = new String[]{ 
+					"depDisplayName", "departDate", "departTime",
+					"arrDisplayName", "departDate", "arriveTime",
+					"airlineDisplayName", "economyPrice", "noOfStops",};
+			
+			do{
+				out.println("<tr>");
+				for(String col : columns){
+					out.println("<td>");
+					out.print(result.getString(col));
+					out.println("</td>");
+				}
+				out.println("<td><a href=\"customerIndex\">Book!</a></td>");
+				out.println("</tr>");
+			}while(result.next());
+			out.println("</table>");
+			
 			con.close();
 			
 			/*
@@ -118,9 +163,9 @@
 			out.print("<table>");
 
 			//make a row
-			out.print("<tr>");
+			
 			//make a column
-			out.print("<td>");
+			
 			//print out column header
 			out.print("name");
 			out.print("</td>");
