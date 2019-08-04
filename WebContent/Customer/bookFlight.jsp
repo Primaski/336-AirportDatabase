@@ -45,9 +45,9 @@
 		String businessPrice = "";
 		String firstPrice = "";
 		String airlineDisplay = "";
-		boolean economyOpen = false;
-		boolean businessOpen = false;
-		boolean firstOpen = false;
+		String econCapacity = "";
+		String businessCapacity = "";
+		String firstCapacity = "";
 		String depDisplay = "";
 		String arrDisplay = "";
 		String depLocation = "";
@@ -59,6 +59,9 @@
 				arriveTime = flightTable.getString("arriveTime");
 				noOfStops = flightTable.getString("noOfStops");
 				airlineDisplay = flightTable.getString("airlineDisplayName");
+				econCapacity = flightTable.getString("economyRemainingCapacity");
+				businessCapacity = flightTable.getString("businessRemainingCapacity");
+				firstCapacity = flightTable.getString("firstRemainingCapacity");
 				economyPrice = flightTable.getString("economyPrice");
 				businessPrice = flightTable.getString("businessPrice");
 				firstPrice = flightTable.getString("firstClassPrice");
@@ -71,19 +74,80 @@
 			}
 		}catch(Exception e){ e.printStackTrace(); }
 		
-		out.println("<h1>Booking Flight: " + departAir + "==>" + arriveAir + "</h1><br/><br/>");
+		out.println("<h1>Booking Flight: " + departAir + " ==> " + arriveAir + "</h1><br/><br/>");
 		
 		out.println("<h3><ul>" +
 					"<li>Trip: " + depDisplay + " (" + departAir + ") ==> " +
 								   arrDisplay + " (" + arriveAir + ") </li>" + 
 					"<li>Departing on: " + departDate + " at " + departTime + "</li>" +
 					"<li>Arriving on: " + departDate + " at " + arriveTime + "</li>" +
-					"<li>Using: " + airlineDisplay + " (" + airlineCode + ")</li>"
-					//TO-DO: prices, capacity, number of stops
+					"<li>Using: " + airlineDisplay + " (" + airlineCode + ") </li>" +
+					"<li>Number of stops: " + noOfStops + "</li>" +
+					"</ul><br/><br/>"
 					);
+		
+		out.println("Economy Class - $" + economyPrice + ".00 <br/>");
+		String open = (Integer.parseInt(econCapacity) > 0) ? 
+				"<b><font color = \"green\">Available!</font></b>" : 
+				"<b><font color = \"red\">Full</font></b>";
+		boolean isOpen = (Integer.parseInt(econCapacity) > 0) ? true : false;
+		out.println("Status: " + open + "<br/>");
+		
+		if(isOpen){ 
+			 //3 is the economy class indicator - pass previous flight primary keys
+			out.println("<td>" + 
+			"<form action =\"verifyBookFlight.jsp\">" +
+			"<input type = \"hidden\" name = \"flightInfo\"" +
+			"value = \"" + flightInfo + "|3" + "\" />" +
+			"<input type =\"submit\" value = \"Book Economy\" " +
+			"</form>" + "</td><br/>");
+		}else{ 
+			//TO-DO: Wait list
+		}
+		
+		
+		out.println("Business Class - $" + businessPrice + ".00 <br/>");
+		open = (Integer.parseInt(businessCapacity) > 0) ? 
+				"<b><font color = \"green\">Available!</font></b>" : 
+				"<b><font color = \"red\">Full</font></b>";
+		isOpen = (Integer.parseInt(businessCapacity) > 0) ? true : false;
+		out.println("Status: " + open + "<br/>");
+		
+		if(isOpen){ 
+			 //2 is the economy class indicator - pass previous flight primary keys
+			out.println("<td>" + 
+			"<form action =\"verifyBookFlight.jsp\">" +
+			"<input type = \"hidden\" name = \"flightInfo\"" +
+			"value = \"" + flightInfo + "|2" + "\" />" +
+			"<input type =\"submit\" value = \"Book Business\" " +
+			"</form>" + "</td><br/>");
+		}else{ 
+			//TO-DO: Wait list
+		}
+		
+		out.println("Economy Class - $" + firstPrice + ".00 <br/>");
+		open = (Integer.parseInt(firstCapacity) > 0) ? 
+				"<b><font color = \"green\">Available!</font></b>" : 
+				"<b><font color = \"red\">Full</font></b>";
+		isOpen = (Integer.parseInt(firstCapacity) > 0) ? true : false;
+		out.println("Status: " + open + "<br/>");
+		out.println("</h3>");
+		
+		if(isOpen){ 
+			 //1 is the first class indicator - pass previous flight primary keys
+			out.println("<td>" + 
+			"<form action =\"verifyBookFlight.jsp\">" +
+			"<input type = \"hidden\" name = \"flightInfo\"" +
+			"value = \"" + flightInfo + "|1" + "\" />" +
+			"<input type =\"submit\" value = \"Book First-Class\" " +
+			"</form>" + "</td><br/>");
+		}else{ 
+			//TO-DO: Wait list
+		}
+		
 	
 	}catch(Exception e){
-		out.println("Flight does not exist! Try again!");
+		e.printStackTrace();
 	}
 	%>
 
