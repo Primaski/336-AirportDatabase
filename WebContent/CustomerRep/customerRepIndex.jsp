@@ -7,7 +7,7 @@
 	<h1>Welcome Customer Rep!</h1>
 	<h2>Please choose a task to complete.</h2>
 	<br />
-	<li><a href="manageReservations.jsp">Create or Edit
+	<li><a href="manageReservation.jsp">Create or Edit
 			Reservations given a Customer ID</a></li>
 	<br />
 	<li><a href="manageAircrafts.jsp">Add, Edit, or Delete
