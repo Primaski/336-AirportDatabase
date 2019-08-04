@@ -41,13 +41,6 @@
 			+ "size = \"2\" type = \"number\" onkeypress=\"return isNo(event)\"/>");
 		out.println("<br/>(* Month, Day)<br/>");
 		
-		/*out.println("<b>Arrival Date:</b><br/>");
-		out.println("<input name = \"arrivemonth\" maxlength ="
-			+ "\"2\" size = \"2\" type = \"number\" onkeypress=\"return isNo(event)\"/>");
-		out.println("<input name = \"arriveday\" maxlength = \"2\"" 
-			+ "size = \"2\" type = \"number\" onkeypress=\"return isNo(event)\"/>");
-		out.println("<br/>(* Month, Day)<br/>");*/
-		
 		out.print("<b>Airline:</b><br/>");
 		out.print("<select name=\"airline\">");
 		Statement stmt2 = con.createStatement();
@@ -84,6 +77,8 @@
 		<input type="submit" value="Submit"/>
 		</form>
 	</body>
+	
+	
 	<script>
 	function isNo(evt){
 	    var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -102,7 +97,7 @@
 			}
 		}catch(Exception e){
 				out.println("I GOT AN ERROR");
-				ea.printStackTrace();
+				e.printStackTrace();
 			}
 		-->
 		

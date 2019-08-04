@@ -151,7 +151,15 @@
 					out.print(result.getString(col));
 					out.println("</td>");
 				}
-				out.println("<td><a href=\"customerIndex\">Book!</a></td>");
+				out.println("<td>" + 
+				"<form action =\"bookFlight.jsp\">" +
+				"<input type = \"hidden\" name = \"flightInfo\"" +
+				"value = \"" + result.getString("departAir") +
+				"|" + result.getString("arriveAir") +
+				"|" + result.getString("airlineCode") +
+				"|" + result.getString("departDate") + "\" />" +
+				"<input type =\"submit\" value = \"Book it!\" " +
+				"</form>" + "</td>");
 				out.println("</tr>");
 			}while(result.next());
 			out.println("</table>");
