@@ -96,7 +96,7 @@
 		if(isOpen){ 
 			 //3 is the economy class indicator - pass previous flight primary keys
 			out.println("<td>" + 
-			"<form action =\"verifyBookFlight.jsp\">" +
+			"<form action =\"bookFlightVerify.jsp\">" +
 			"<input type = \"hidden\" name = \"flightInfo\"" +
 			"value = \"" + flightInfo + "|3" + "\" />" +
 			"<input type =\"submit\" value = \"Book Economy\" " +
@@ -105,7 +105,8 @@
 			//TO-DO: Wait list
 		}
 		
-		
+		out.println("</h3>");
+		out.println("<h3>");
 		out.println("Business Class - $" + businessPrice + ".00 <br/>");
 		open = (Integer.parseInt(businessCapacity) > 0) ? 
 				"<b><font color = \"green\">Available!</font></b>" : 
@@ -114,9 +115,9 @@
 		out.println("Status: " + open + "<br/>");
 		
 		if(isOpen){ 
-			 //2 is the economy class indicator - pass previous flight primary keys
+			 //2 is the business class indicator - pass previous flight primary keys
 			out.println("<td>" + 
-			"<form action =\"verifyBookFlight.jsp\">" +
+			"<form action =\"bookFlightVerify.jsp\">" +
 			"<input type = \"hidden\" name = \"flightInfo\"" +
 			"value = \"" + flightInfo + "|2" + "\" />" +
 			"<input type =\"submit\" value = \"Book Business\" " +
@@ -125,18 +126,19 @@
 			//TO-DO: Wait list
 		}
 		
-		out.println("Economy Class - $" + firstPrice + ".00 <br/>");
+		out.println("</h3>");
+		out.println("<h3>");
+		out.println("First Class - $" + firstPrice + ".00 <br/>");
 		open = (Integer.parseInt(firstCapacity) > 0) ? 
 				"<b><font color = \"green\">Available!</font></b>" : 
 				"<b><font color = \"red\">Full</font></b>";
 		isOpen = (Integer.parseInt(firstCapacity) > 0) ? true : false;
 		out.println("Status: " + open + "<br/>");
-		out.println("</h3>");
 		
 		if(isOpen){ 
 			 //1 is the first class indicator - pass previous flight primary keys
 			out.println("<td>" + 
-			"<form action =\"verifyBookFlight.jsp\">" +
+			"<form action =\"bookFlightVerify.jsp\">" +
 			"<input type = \"hidden\" name = \"flightInfo\"" +
 			"value = \"" + flightInfo + "|1" + "\" />" +
 			"<input type =\"submit\" value = \"Book First-Class\" " +
@@ -144,6 +146,7 @@
 		}else{ 
 			//TO-DO: Wait list
 		}
+		out.println("</h3>");
 		
 	
 	}catch(Exception e){
