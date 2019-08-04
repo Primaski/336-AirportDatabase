@@ -61,7 +61,7 @@
 		out.println( 
 		"<form action =\"bookFlightConfirmed.jsp\">" +
 		"<input type = \"hidden\" name = \"flightInfo\"" +
-		"value = \"" + flightInfo + "|" + bci + "\" />" +
+		"value = \"" + flightInfo + "\" />" +
 		"<input type =\"submit\" value = \"I'm sure, let's book it!\" " +
 		"</form>" + "</td><br/>"
 		);

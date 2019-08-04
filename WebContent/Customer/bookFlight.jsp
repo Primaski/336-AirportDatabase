@@ -38,20 +38,20 @@
 					
 		ResultSet flightTable = stmt.executeQuery(query);
 		String sr = "";	
-		String departTime = "";
-		String arriveTime = "";
-		String noOfStops = "";
-		String economyPrice = "";
-		String businessPrice = "";
-		String firstPrice = "";
-		String airlineDisplay = "";
-		String econCapacity = "";
-		String businessCapacity = "";
-		String firstCapacity = "";
-		String depDisplay = "";
-		String arrDisplay = "";
-		String depLocation = "";
-		String arrLocation = "";
+		String departTime = "null";
+		String arriveTime = "null";
+		String noOfStops = "null";
+		String economyPrice = "null";
+		String businessPrice = "null";
+		String firstPrice = "null";
+		String airlineDisplay = "null";
+		String econCapacity = "null";
+		String businessCapacity = "null";
+		String firstCapacity = "null";
+		String depDisplay = "null";
+		String arrDisplay = "null";
+		String depLocation = "null";
+		String arrLocation = "null";
 				
 		try{
 			if(flightTable.next()){
@@ -61,7 +61,7 @@
 				airlineDisplay = flightTable.getString("airlineDisplayName");
 				econCapacity = flightTable.getString("economyRemainingCapacity");
 				businessCapacity = flightTable.getString("businessRemainingCapacity");
-				firstCapacity = flightTable.getString("firstRemainingCapacity");
+				firstCapacity = flightTable.getString("firstClassRemainingCapacity");
 				economyPrice = flightTable.getString("economyPrice");
 				businessPrice = flightTable.getString("businessPrice");
 				firstPrice = flightTable.getString("firstClassPrice");
@@ -72,7 +72,7 @@
 				arrLocation = (flightTable.getString("arrCity") + "," +
 						flightTable.getString("arrState"));
 			}
-		}catch(Exception e){ e.printStackTrace(); }
+		}catch(Exception e){ out.println(e.toString()); e.printStackTrace(); return; }
 		
 		out.println("<h1>Booking Flight: " + departAir + " ==> " + arriveAir + "</h1><br/><br/>");
 		

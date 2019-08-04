@@ -3,9 +3,22 @@
 <head>
 <title>Welcome!</title>
 </head>
-<%=session.getAttribute("user")%>
 <body>
-	<h1>Welcome </h1>
+	<%
+	String failureMessage = "<h1>Oops! It seems you're not logged in.</h1>";
+	try{
+		Object user = session.getAttribute("user");
+		if(user == null){
+			out.println(failureMessage);
+			return;
+		}else{
+			out.println("<h1> Welcome, " + user.toString() + "!</h1><br/>");
+		}
+	}catch(Exception e){
+		out.println(failureMessage);
+		return;
+	}
+	%>
 	<h2>Please choose an option below.</h2>
 	<li><a href="customerSearch.jsp">Search for available flights</a></li>
 	<br />
