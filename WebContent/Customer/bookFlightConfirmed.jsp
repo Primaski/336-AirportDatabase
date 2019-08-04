@@ -205,7 +205,15 @@
 		}catch (Exception e){
 			out.println("Failure on step 4, see stack trace.");
 			e.printStackTrace();
+			return;
 		}
+		
+		out.println("Successfully purchased your ticket! Your ticket ID is : <b>" +
+		String.format("%08d", Integer.parseInt(ticketID)) + "</b>. You can view this " +
+				"in your reservations.<br/><br/>");
+		
+		out.println("<a href=\"customerIndex.jsp\">Return to Main Menu</a>");
+		
 		
 		
 	%>
