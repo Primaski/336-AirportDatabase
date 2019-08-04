@@ -5,6 +5,7 @@
 </head>
 <body>
 	<%
+	//.
 	String failureMessage = "<h1>Oops! It seems you're not logged in.</h1>";
 	try{
 		Object user = session.getAttribute("user");

@@ -10,8 +10,10 @@
 </head>
 <body>
 	<%
+	//.
 		session.invalidate();
 		response.sendRedirect("login.jsp");
+	//.
 	%>
 
 </body>

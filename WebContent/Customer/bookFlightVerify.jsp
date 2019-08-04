@@ -13,7 +13,7 @@
 	try{
 		String flightInfo = request.getParameter("flightInfo");
 
-		//verify flight truly exists + get metadata
+		///verify flight truly exists + get metadata
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();		
 		Statement stmt = con.createStatement();

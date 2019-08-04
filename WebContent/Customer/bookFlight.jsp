@@ -144,7 +144,7 @@
 			"<input type =\"submit\" value = \"Book First-Class\" " +
 			"</form>" + "</td><br/>");
 		}else{ 
-			//TO-DO: Wait list
+			///TO-DO: Wait list
 		}
 		out.println("</h3>");
 		
