@@ -32,7 +32,7 @@
  	out.println("</select> <br/>");
  %>
 
-		<input type="submit" value="Submit" />
+		<input type="submit" value="Add Aircraft" />
 	</form>
 	<br />
 	<a href="manageAircrafts.jsp">Return to Aircrafts Menu</a>

@@ -15,7 +15,7 @@
        Country <font color="red"><b>*</b></font>: <br/> <input type="text" name="Country" required/> <br/>
        zipCode <font color="red"><b>*</b></font>: <br/> <input type="text" name="zipCode" required/> <br/>
        
-       <input type="submit" value="Submit"/>
+       <input type="submit" value="Add Airport"/>
      </form>
      <br/>
      <a href="manageAirports.jsp">Return to Aircrafts Menu</a>

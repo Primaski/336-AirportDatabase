@@ -15,7 +15,7 @@
 	</h1>
 	<b>Airports: </b>
 	<font color="red"><b>*</b></font>
-	<form action="editAirportResults.jsp" method="POST">
+	<form action="editAirportDetail.jsp" method="POST">
 		<%
 			ApplicationDB db = new ApplicationDB();
 			Connection con = db.getConnection();
@@ -23,14 +23,14 @@
 			Statement stmt = con.createStatement();
 			String str = "SELECT AirportCode FROM Airports";
 			ResultSet airports = stmt.executeQuery(str);
-			out.println("<select name =\"toBeEdited\">");
+			out.println("<select name =\"toBeEd\">");
 			while (airports.next()) {
 				out.println("<option>" + airports.getString(1));
 			}
 			airports.beforeFirst();//hi
 			out.println("</select> <br/>");
 		%>
-		<br /> <input type="submit" value="Submit" />
+		<br /> <input type="submit" value="Select Airport" />
 	</form>
 	</body>
 	<script>

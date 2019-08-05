@@ -30,7 +30,7 @@
 			airports.beforeFirst();//hi
 			out.println("</select> <br/>");
 		%>
-		<br /> <input type="submit" value="Submit" />
+		<br /> <input type="submit" value="Delete Selected Airport" />
 	</form>
 	</body>
 	<script>
