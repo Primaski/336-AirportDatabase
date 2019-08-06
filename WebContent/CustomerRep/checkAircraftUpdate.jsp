@@ -19,36 +19,51 @@
 				"sqlPassword");
 		Statement st = con.createStatement();
 		ResultSet rs;
-		if (TailNumber == "" || TailNumber == null||TailNumber.length()>6) {
+		if (TailNumber == "" || TailNumber == null || TailNumber.length() > 6) {
 			out.println("Please provide a valid tail number");
 			out.println("<a href=\"addAircraft.jsp\">Try Again</a>");
 			return;
-		}
-		rs = st.executeQuery("select * from Aircrafts where Tailnumber ='" + TailNumber + "'");
-
-		if (rs.next()) {
-			out.println("Sorry, this tailnumber is already in use!");
-			out.println("<a href=\"addAircraft.jsp\">Try Again</a>");
-			return;
 		} else {
-			if (ModelNumber == "" || ModelNumber == null) {
-				out.println("Please provide a model number!");
-				out.println("<a href=\"addAircraft.jsp\">Try Again</a>");
-				return;
-			} else if (AirlineCode == null || AirlineCode == "" || Color == null || Color == "") {
-				out.println("Airline or color invalid.");
-				out.println("<a href=\"addAircraft.jsp\">Try Again</a>");
-				return;
-			}
-			int rowsModified = st
-					.executeUpdate("insert into Aircrafts " + "(Tailnumber, model, color, AirlineCode) values ('"
-							+ TailNumber + "','" + ModelNumber + "','" + Color + "','" + AirlineCode + "')");
-			if (rowsModified != 0) {
-				out.println("Successfully updated " + TailNumber + "'s registration! Have a safe Flight!");
+			if (!TailNumber.equals(session.getAttribute("editTailnum"))) {
+
+				rs = st.executeQuery("select * from Aircrafts where Tailnumber ='" + TailNumber + "'");
+
+				if (rs.next()) {
+					out.println("Sorry, this tailnumber is already in use!");
+					out.println("<a href=\"addAircraft.jsp\">Try Again</a>");
+					return;
+				}
 			} else {
-				out.println("No entries were added.");
+
+				st.executeUpdate("UPDATE Aircrafts SET Tailnumber = '" + TailNumber + "' WHERE model = '"
+						+ ModelNumber + "' AND color ='" + Color + "' AND AirlineCode = '" + AirlineCode + "'");
+				out.println("Successfully Edited Tailnumber:  " + TailNumber + "<br/>");
+
+				if (ModelNumber == null || !ModelNumber.equals(session.getAttribute("editModelNum"))) {
+					st.executeUpdate("UPDATE Aircrafts SET model = '" + ModelNumber + "' WHERE Tailnumber = '"
+							+ TailNumber + "'");
+					out.println("Successfully Edited " + TailNumber + "'s Model number!" + "<br/>");
+				} else {
+					out.println("Model number was not updated." + "<br/>");
+				}
+				if (Color == null || !Color.equals(session.getAttribute("editColor"))) {
+					st.executeUpdate(
+							"UPDATE Aircrafts SET color = '" + Color + "' WHERE Tailnumber = '" + TailNumber + "'");
+					out.println("Successfully Edited " + TailNumber + "'s Color!" + "<br/>");
+				} else {
+					out.println("Color was not updated." + "<br/>");
+				}
+				if (!AirlineCode.equals(session.getAttribute("editAirlineCode"))) {
+					st.executeUpdate("UPDATE Aircrafts SET AirlineCode = '" + AirlineCode + "' WHERE Tailnumber = '"
+							+ TailNumber + "'");
+					out.println("Successfully Edited " + TailNumber + "'s Airline Code!" + "<br/>");
+				} else {
+					out.println("Airline Code was not updated." + "<br/>");
+				}
 			}
 		}
+
+		con.close();
 	%>
 	<br />
 	<a href="customerRepIndex.jsp">Back to Rep Menu</a>

@@ -58,7 +58,7 @@
 		Color <font color="red"><b>*</b></font>: <br /> <input type="text"
 			name="color" value=<%=session.getAttribute("editColor")%> required />
 		<br /> AirlineCode <font color="red"><b>*</b></font>: <br /> <input
-			type="text" name="color"
+			type="text" name="airlineCode"
 			value=<%=session.getAttribute("editAirlineCode")%> required /> <br />
 
 
