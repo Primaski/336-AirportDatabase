@@ -8,7 +8,7 @@
 <title>Edit Selected Airport</title>
 </head>
 <body>
-	<h1>Edit Selected Airport</h1>
+	<h1>Edit Selected Airport: To change airport code, edit no other fields</h1>
 	<br />
 	<%
 		try {

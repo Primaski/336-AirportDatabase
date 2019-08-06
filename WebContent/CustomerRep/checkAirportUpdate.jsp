@@ -9,16 +9,16 @@
 </head>
 <body>
 	<%
-	String airportcode = request.getParameter("AirportCode");
-	String airportName = request.getParameter("AirportName");
-	String address = request.getParameter("Address");
-	String city = request.getParameter("City");
-	String state = request.getParameter("State");
-	String country = request.getParameter("Country");
-	String zip = request.getParameter("zipCode");
+		String airportcode = request.getParameter("AirportCode");
+		String airportName = request.getParameter("AirportName");
+		String address = request.getParameter("Address");
+		String city = request.getParameter("City");
+		String state = request.getParameter("State");
+		String country = request.getParameter("Country");
+		String zip = request.getParameter("zipCode");
 
-	Class.forName("com.mysql.jdbc.Driver");
-			Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection(
 				"jdbc:mysql://summercs336.ch54a1ii8pba.us-east-2.rds.amazonaws.com:3306/TravelDB", "sqlAdmin",
 				"sqlPassword");
@@ -37,48 +37,49 @@
 					out.println("Sorry, this Airport Code is already in use!");
 					out.println("<a href=\"addAirport.jsp\">Try Again</a>");
 					return;
-				}
-			} else {
+				} else {
 
-				st.executeUpdate("UPDATE Airports SET airportCode = '" + airportcode + "' WHERE displayName = '"
-						+ airportName + "' AND address ='" + address + "' AND city = '" + city + "'" + "' AND state ='" + state + "' AND country = '" + country + "' AND zipCode = '" + zip + "'");
-				out.println("Successfully Edited airport code:  " + airportcode + "<br/>");
+					st.executeUpdate("UPDATE Airports SET airportCode = '" + airportcode + "' WHERE displayName = '"
+							+ airportName + "' AND address ='" + address + "' AND city = '" + city
+							+ "' AND state ='" + state + "' AND country = '" + country + "' AND zipCode = '" + zip
+							+ "'");
+					out.println("Successfully Edited airport code:  " + airportcode + "<br/>");
 
-	
-				if (airportName == null || !airportName.equals(session.getAttribute("editAirportName"))) {
-					st.executeUpdate(
-							"UPDATE Airports SET displayName = '" + airportName + "' WHERE airportcode = '" + airportcode + "'");
-					out.println("Successfully Edited " + airportcode + "'s Name!" + "<br/>");
-				} else {
-					out.println("Name was not updated." + "<br/>");
-				}
-				if (!address.equals(session.getAttribute("editAddress"))) {
-					st.executeUpdate("UPDATE Airports SET address = '" + address + "' WHERE airportcode = '"
-							+ airportcode + "'");
-					out.println("Successfully Edited " + airportcode + "'s Address!" + "<br/>");
-				} else {
-					out.println("Address was not updated." + "<br/>");
-				}
-				if (city == null || !city.equals(session.getAttribute("editCity"))) {
-					st.executeUpdate("UPDATE Airports SET city = '" + city + "' WHERE airportcode = '"
-							+ airportcode + "'");
-					out.println("Successfully Edited " + airportcode + "'s city!" + "<br/>");
-				} else {
-					out.println("City was not updated." + "<br/>");
-				}
-				if (state == null || !state.equals(session.getAttribute("editState"))) {
-					st.executeUpdate(
-							"UPDATE Airports SET state = '" + state + "' WHERE airportcode = '" + airportcode + "'");
-					out.println("Successfully Edited " + airportcode + "'s State!" + "<br/>");
-				} else {
-					out.println("State was not updated." + "<br/>");
-				}
-				if (!country.equals(session.getAttribute("editCountry"))) {
-					st.executeUpdate("UPDATE Airports SET country = '" + country + "' WHERE airportcode = '"
-							+ airportcode + "'");
-					out.println("Successfully Edited " + airportcode + "'s Country!" + "<br/>");
-				} else {
-					out.println("Country was not updated." + "<br/>");
+					if (airportName == null || !airportName.equals(session.getAttribute("editAirportName"))) {
+						st.executeUpdate("UPDATE Airports SET displayName = '" + airportName
+								+ "' WHERE airportcode = '" + airportcode + "'");
+						out.println("Successfully Edited " + airportcode + "'s Name!" + "<br/>");
+					} else {
+						out.println("Name was not updated." + "<br/>");
+					}
+					if (!address.equals(session.getAttribute("editAddress"))) {
+						st.executeUpdate("UPDATE Airports SET address = '" + address + "' WHERE airportcode = '"
+								+ airportcode + "'");
+						out.println("Successfully Edited " + airportcode + "'s Address!" + "<br/>");
+					} else {
+						out.println("Address was not updated." + "<br/>");
+					}
+					if (city == null || !city.equals(session.getAttribute("editCity"))) {
+						st.executeUpdate("UPDATE Airports SET city = '" + city + "' WHERE airportcode = '"
+								+ airportcode + "'");
+						out.println("Successfully Edited " + airportcode + "'s city!" + "<br/>");
+					} else {
+						out.println("City was not updated." + "<br/>");
+					}
+					if (state == null || !state.equals(session.getAttribute("editState"))) {
+						st.executeUpdate("UPDATE Airports SET state = '" + state + "' WHERE airportcode = '"
+								+ airportcode + "'");
+						out.println("Successfully Edited " + airportcode + "'s State!" + "<br/>");
+					} else {
+						out.println("State was not updated." + "<br/>");
+					}
+					if (!country.equals(session.getAttribute("editCountry"))) {
+						st.executeUpdate("UPDATE Airports SET country = '" + country + "' WHERE airportcode = '"
+								+ airportcode + "'");
+						out.println("Successfully Edited " + airportcode + "'s Country!" + "<br/>");
+					} else {
+						out.println("Country was not updated." + "<br/>");
+					}
 				}
 			}
 		}
