@@ -6,7 +6,7 @@
    <body>
    <h1> Create Account</h1>
    <br/>
-     <form action="checkCustomerAccountCreation.jsp" method="POST">
+     <form action="checkCustomerRepAccountCreation.jsp" method="POST">
        Username <font color="red"><b>*</b></font>: <br/> <input type="text" name="username" required/> <br/>
        Password <font color="red"><b>*</b></font>: <br/> <input type="password" name="password" required/> <br/>
        First Name <font color="red"><b>*</b></font>: <br/> <input type="text" name="first" required/> <br/>
@@ -18,6 +18,6 @@
        <input type="submit" value="Submit"/>
      </form>
      <br/>
-     <a href="index.jsp">Return to Main Menu</a>
+    <a href="adminIndex.jsp">Back to Admin Menu</a>
    </body>
 </html>

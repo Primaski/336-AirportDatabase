@@ -18,6 +18,6 @@
        <input type="submit" value="Submit"/>
      </form>
      <br/>
-     <a href="index.jsp">Return to Main Menu</a>
+  <a href="adminIndex.jsp">Back to Admin Menu</a>
    </body>
 </html>
