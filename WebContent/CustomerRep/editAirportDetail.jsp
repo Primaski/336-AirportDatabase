@@ -58,7 +58,7 @@
 		}
 	%>
 
-	 <form action="checkAirportCreation.jsp" method="POST">
+	 <form action="checkAirportUpdate.jsp" method="POST">
        AirportCode <font color="red"><b>*</b></font>: <br/> <input type="text" name="AirportCode" value=<%=session.getAttribute("editAirportCode")%> required/> <br/>
        AirportName <font color="red"><b>*</b></font>: <br/> <input type="text" name="AirportName" value=<%=session.getAttribute("editAirportName")%> required/> <br/>
        Address <font color="red"><b>*</b></font>: <br/> <input type="text" name="Address" value=<%=session.getAttribute("editAddress")%> required/> <br/>

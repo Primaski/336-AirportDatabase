@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>accountRec</title>
+<title>Airport Update Results</title>
 </head>
 <body>
 	<%
-	String airportcode = request.getParameter("airportcode");
+	String airportcode = request.getParameter("AirportCode");
 	String airportName = request.getParameter("AirportName");
 	String address = request.getParameter("Address");
 	String city = request.getParameter("City");
@@ -24,12 +24,12 @@
 				"sqlPassword");
 		Statement st = con.createStatement();
 		ResultSet rs;
-		if (airportcode == "" || airportcode == null || airportcode.length() <= 3) {
-			out.println("Please provide a airport Code");
+		if (airportcode == "" || airportcode == null || airportcode.length() > 3) {
+			out.println("Please provide a valid airport Code");
 			out.println("<a href=\"addAirport.jsp\">Try Again</a>");
 			return;
 		} else {
-			if (!airportcode.equals(session.getAttribute("editairportcode"))) {
+			if (!airportcode.equals(session.getAttribute("editAirportCode"))) {
 
 				rs = st.executeQuery("select * from Airports where airportcode ='" + airportcode + "'");
 
@@ -44,14 +44,8 @@
 						+ airportName + "' AND address ='" + address + "' AND city = '" + city + "'" + "' AND state ='" + state + "' AND country = '" + country + "' AND zipCode = '" + zip + "'");
 				out.println("Successfully Edited airport code:  " + airportcode + "<br/>");
 
-				if (airportName == null || !airportName.equals(session.getAttribute("editModelNum"))) {
-					st.executeUpdate("UPDATE Airports SET model = '" + airportName + "' WHERE airportcode = '"
-							+ airportcode + "'");
-					out.println("Successfully Edited " + airportcode + "'s Model number!" + "<br/>");
-				} else {
-					out.println("Model number was not updated." + "<br/>");
-				}
-				if (airportName == null || !airportName.equals(session.getAttribute("editairportName"))) {
+	
+				if (airportName == null || !airportName.equals(session.getAttribute("editAirportName"))) {
 					st.executeUpdate(
 							"UPDATE Airports SET displayName = '" + airportName + "' WHERE airportcode = '" + airportcode + "'");
 					out.println("Successfully Edited " + airportcode + "'s Name!" + "<br/>");
