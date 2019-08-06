@@ -25,8 +25,8 @@
 		Statement st = con.createStatement();
 		ResultSet rs;
 		if (airportcode == "" || airportcode == null || airportcode.length() <= 3) {
-			out.println("Please provide a valid tail number");
-			out.println("<a href=\"addAircraft.jsp\">Try Again</a>");
+			out.println("Please provide a airport Code");
+			out.println("<a href=\"addAirport.jsp\">Try Again</a>");
 			return;
 		} else {
 			if (!airportcode.equals(session.getAttribute("editairportcode"))) {
@@ -35,56 +35,56 @@
 
 				if (rs.next()) {
 					out.println("Sorry, this Airport Code is already in use!");
-					out.println("<a href=\"addAirportt.jsp\">Try Again</a>");
+					out.println("<a href=\"addAirport.jsp\">Try Again</a>");
 					return;
 				}
 			} else {
 
-				st.executeUpdate("UPDATE Airports SET airportcode = '" + airportcode + "' WHERE model = '"
-						+ ModelNumber + "' AND color ='" + Color + "' AND AirlineCode = '" + AirlineCode + "'");
+				st.executeUpdate("UPDATE Airports SET airportCode = '" + airportcode + "' WHERE displayName = '"
+						+ airportName + "' AND address ='" + address + "' AND city = '" + city + "'" + "' AND state ='" + state + "' AND country = '" + country + "' AND zipCode = '" + zip + "'");
 				out.println("Successfully Edited airport code:  " + airportcode + "<br/>");
 
-				if (ModelNumber == null || !ModelNumber.equals(session.getAttribute("editModelNum"))) {
-					st.executeUpdate("UPDATE Airports SET model = '" + ModelNumber + "' WHERE airportcode = '"
+				if (airportName == null || !airportName.equals(session.getAttribute("editModelNum"))) {
+					st.executeUpdate("UPDATE Airports SET model = '" + airportName + "' WHERE airportcode = '"
 							+ airportcode + "'");
 					out.println("Successfully Edited " + airportcode + "'s Model number!" + "<br/>");
 				} else {
 					out.println("Model number was not updated." + "<br/>");
 				}
-				if (Color == null || !Color.equals(session.getAttribute("editColor"))) {
+				if (airportName == null || !airportName.equals(session.getAttribute("editairportName"))) {
 					st.executeUpdate(
-							"UPDATE Airports SET color = '" + Color + "' WHERE airportcode = '" + airportcode + "'");
-					out.println("Successfully Edited " + airportcode + "'s Color!" + "<br/>");
+							"UPDATE Airports SET displayName = '" + airportName + "' WHERE airportcode = '" + airportcode + "'");
+					out.println("Successfully Edited " + airportcode + "'s Name!" + "<br/>");
 				} else {
-					out.println("Color was not updated." + "<br/>");
+					out.println("Name was not updated." + "<br/>");
 				}
-				if (!AirlineCode.equals(session.getAttribute("editAirlineCode"))) {
-					st.executeUpdate("UPDATE Airports SET AirlineCode = '" + AirlineCode + "' WHERE airportcode = '"
+				if (!address.equals(session.getAttribute("editAddress"))) {
+					st.executeUpdate("UPDATE Airports SET address = '" + address + "' WHERE airportcode = '"
 							+ airportcode + "'");
-					out.println("Successfully Edited " + airportcode + "'s Airline Code!" + "<br/>");
+					out.println("Successfully Edited " + airportcode + "'s Address!" + "<br/>");
 				} else {
-					out.println("Airline Code was not updated." + "<br/>");
+					out.println("Address was not updated." + "<br/>");
 				}
-				if (ModelNumber == null || !ModelNumber.equals(session.getAttribute("editModelNum"))) {
-					st.executeUpdate("UPDATE Airports SET model = '" + ModelNumber + "' WHERE airportcode = '"
+				if (city == null || !city.equals(session.getAttribute("editCity"))) {
+					st.executeUpdate("UPDATE Airports SET city = '" + city + "' WHERE airportcode = '"
 							+ airportcode + "'");
-					out.println("Successfully Edited " + airportcode + "'s Model number!" + "<br/>");
+					out.println("Successfully Edited " + airportcode + "'s city!" + "<br/>");
 				} else {
-					out.println("Model number was not updated." + "<br/>");
+					out.println("City was not updated." + "<br/>");
 				}
-				if (Color == null || !Color.equals(session.getAttribute("editColor"))) {
+				if (state == null || !state.equals(session.getAttribute("editState"))) {
 					st.executeUpdate(
-							"UPDATE Airports SET color = '" + Color + "' WHERE airportcode = '" + airportcode + "'");
-					out.println("Successfully Edited " + airportcode + "'s Color!" + "<br/>");
+							"UPDATE Airports SET state = '" + state + "' WHERE airportcode = '" + airportcode + "'");
+					out.println("Successfully Edited " + airportcode + "'s State!" + "<br/>");
 				} else {
-					out.println("Color was not updated." + "<br/>");
+					out.println("State was not updated." + "<br/>");
 				}
-				if (!AirlineCode.equals(session.getAttribute("editAirlineCode"))) {
-					st.executeUpdate("UPDATE Airports SET AirlineCode = '" + AirlineCode + "' WHERE airportcode = '"
+				if (!country.equals(session.getAttribute("editCountry"))) {
+					st.executeUpdate("UPDATE Airports SET country = '" + country + "' WHERE airportcode = '"
 							+ airportcode + "'");
-					out.println("Successfully Edited " + airportcode + "'s Airline Code!" + "<br/>");
+					out.println("Successfully Edited " + airportcode + "'s Country!" + "<br/>");
 				} else {
-					out.println("Airline Code was not updated." + "<br/>");
+					out.println("Country was not updated." + "<br/>");
 				}
 			}
 		}
