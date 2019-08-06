@@ -15,6 +15,7 @@
        Street Address: <br/> <input type="text" name="address"/> <br/>
        City: <br/> <input type="text" name="city"/> <br/>
        State:<br/> <input type="text" name="state"/> <br/>
+       Zip Code:<br/> <input type="text" name="zipCode"/> <br/>
        <input type="submit" value="Submit"/>
      </form>
      <br/>

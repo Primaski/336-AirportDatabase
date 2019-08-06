@@ -18,7 +18,7 @@
 		String address = request.getParameter("address");
 		String city = request.getParameter("city");
 		String state = request.getParameter("state");
-		String zip = request.getParameter("zip");
+		String zip = request.getParameter("zipCode");
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection(
 				"jdbc:mysql://summercs336.ch54a1ii8pba.us-east-2.rds.amazonaws.com:3306/TravelDB", "sqlAdmin",
@@ -50,19 +50,23 @@
 				out.println("Please provide only state INITIALS (2 characters).");
 				out.println("<a href=\"createCustomerAccount.jsp\">Try Again</a>");
 				return;
+			}else if(zip.length()> 5){
+				out.println("Please enter a valid postal code.");
+				out.println("<a href=\"createCustomerAccount.jsp\">Try Again</a>");
+				return;
 			}
 			int rowsModified = st.executeUpdate("insert into users "
-					+ "(username, password, address, city, state, zip, email, firstName, lastName, userRole) values ('" +
+					+ "(username, password, userRole, address, city, state, zip, email, firstName, lastName) values ('" +
 			  userid + "','" +
-			  pwd  + "','" +
+			  pwd  + 
+			  "','Customer','"+
 			  address  + "','" +
 			  city  + "','" +
 			  state  + "','" +
 			  zip  + "','" +
 			  email  + "','" +
 			  firstName  + "','" +
-			  lastName  + "','" +
-			  "Customer')");
+			  lastName  + "')");
 			if(rowsModified != 0){
 				out.println("Successfully created " + userid + "'s account! Please log in.");
 			}else{
@@ -72,7 +76,7 @@
 		
 		%>
 		<br/>
-<a href="adminIndex.jsp">Back to Admin Menu</a>
+     <a href="adminIndex.jsp">Back to Admin Menu</a>
 
 </body>
 </html>

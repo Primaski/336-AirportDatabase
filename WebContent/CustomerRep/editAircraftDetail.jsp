@@ -18,6 +18,7 @@
 			String editAircraft = request.getParameter("toBeEdited");
 			String query = "select *  from Aircrafts where Tailnumber = '" + editAircraft + "'";
 
+
 			Statement stmt = con.createStatement();
 			ResultSet result = stmt.executeQuery(query);
 
