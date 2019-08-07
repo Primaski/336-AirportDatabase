@@ -35,10 +35,10 @@
 			
 			//Arrival and departure are necessary, this parses the "City, State" into 2 distinct columns,
 			//and searches the four columns corresponding to Departure and Arrival. This will be added to the query.
-			String arrival = "arrCity = '" + arriveAirCityState[0] + 
-					"' and arrState = '" + arriveAirCityState[1] + "'" ;
-			String departure = " and depCity = '" + departAirCityState[0] + "' and " +
-				       "depState = '" + departAirCityState[1] + "'";
+			String arrival = "arriveCity = '" + arriveAirCityState[0] + 
+					"' and arriveState = '" + arriveAirCityState[1] + "'" ;
+			String departure = " and departCity = '" + departAirCityState[0] + "' and " +
+				       "departState = '" + departAirCityState[1] + "'";
 			
 			
 			//First optional parameter is departing date. If blank, "" will be added instead of a parameter
@@ -92,7 +92,7 @@
 			//QUERY TO BE SUBMITTED -
 			//uses the flights View - this table merges Flights, Airports, ArrivesAt, DepartsFrom & Airlines.
 			String query = "SELECT * " +
-			"FROM  FlightsExpanded " + 
+			"FROM  searchUtil " + 
 			"WHERE  " + arrival +
 					    departure +
 					    date +

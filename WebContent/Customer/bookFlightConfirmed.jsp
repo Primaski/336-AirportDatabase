@@ -48,37 +48,31 @@
 			return;
 		}
 		String[] splits = flightInfo.split("\\|");
-		if(splits.length != 5){
+		if(splits.length != 2){
 			out.println("flight info meta data was compromised, please try again.");
 			out.println("expected five arguments but received" + flightInfo);
 			return;
 		}
 	
-		String departAir = splits[0];
-		String arriveAir = splits[1];
-		String airlineCode = splits[2];
-		String departDate = splits[3];
-		String bci = splits[4];
+		String flightID = splits[0];
+		String bci = splits[1];
 	
 		String bookedClass = (bci.equals("3")) ? 
 				"economy" : ((bci.equals("2")) ? 
 				"business" : "firstClass");
 	
 		String query = 	"SELECT " + "* " +
-						"FROM FlightsExpanded " +
-						"WHERE departAir = '" + departAir + "' and " +
-							   "arriveAir = '" + arriveAir + "' and " +
-							   "airlineCode = '" + airlineCode + "' and " +
-							   "departDate = '" + departDate + "'";
+						"FROM searchUtil " +
+						"WHERE flightID = '" + flightID + "'";
 		ResultSet flightExpanded = stmt.executeQuery(query);
 		
 		try{
 			if(flightExpanded.next()){
-				if(flightExpanded.getString(bookedClass + "RemainingCapacity") == null){
+				if(flightExpanded.getString(bookedClass + "Capacity") == null){
 					//failure on step 2
 					out.println("Flight does not exist! Try again."); return;
 				}else{
-					int remaining = Integer.parseInt(flightExpanded.getString(bookedClass + "RemainingCapacity"));
+					int remaining = Integer.parseInt(flightExpanded.getString(bookedClass + "Capacity"));
 					if(remaining < 1){
 						//failure on step 2 - capacity
 						out.println("Unfortunately, " + bookedClass + " on this flight has no more open " +
@@ -111,11 +105,8 @@
 			flightExpanded.beforeFirst(); //rewind
 			
 		//generate ticket
-			query = "INSERT INTO Tickets (departAir, arriveAir, airlineCode, departTime, " + 
-				"departDate, flightClass, generatedOn) " + 
-					"values ('" + departAir + "', '" + arriveAir + "', '" +
-					airlineCode + "', '" + departTime + "', '" + departDate + "', '" + 
-					bookedClass + "', '" + generatedOn + "')";
+			query = "INSERT INTO Tickets (FlightID, flightClass, generatedOn) " + 
+					"values ('" + flightID + "', '" + bookedClass + "', '" + generatedOn + "')";
 			int rowsAffected = con.createStatement().executeUpdate(query);
 			boolean success = (rowsAffected == 1) ? true : false;
 		
@@ -161,13 +152,10 @@
 			Statement stmt3 = con.createStatement();
 			boolean success = false;
 			query = 		"UPDATE Flights " +
-							"SET " + bookedClass + "RemainingCapacity = if("
-							+ bookedClass + "RemainingCapacity > 0, "
-							+ bookedClass + "RemainingCapacity - 1, 0) " +
-							"WHERE departAir = '" + departAir + "' and " +
-								   "arriveAir = '" + arriveAir + "' and " +
-								   "airlineCode = '" + airlineCode + "' and " +
-								   "departDate = '" + departDate + "'";
+							"SET " + bookedClass + "Capacity = if("
+							+ bookedClass + "Capacity > 0, "
+							+ bookedClass + "Capacity - 1, 0) " +
+							"WHERE FlightID = '" + flightID + "'";
 			success = (stmt3.executeUpdate(query) == 1) ? true : false;
 		
 			if(!success){

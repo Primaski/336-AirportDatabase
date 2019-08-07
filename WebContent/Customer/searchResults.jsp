@@ -36,10 +36,10 @@
 			
 			//Arrival and departure are necessary, this parses the "City, State" into 2 distinct columns,
 			//and searches the four columns corresponding to Departure and Arrival. This will be added to the query.
-			String arrival = "arrCity = '" + arriveAirCityState[0] + 
-					"' and arrState = '" + arriveAirCityState[1] + "'" ;
-			String departure = " and depCity = '" + departAirCityState[0] + "' and " +
-				       "depState = '" + departAirCityState[1] + "'";
+			String arrival = "arriveCity = '" + arriveAirCityState[0] + 
+					"' and arriveState = '" + arriveAirCityState[1] + "'" ;
+			String departure = " and departCity = '" + departAirCityState[0] + "' and " +
+				       "departState = '" + departAirCityState[1] + "'";
 			
 			
 			//First optional parameter is departing date. If blank, "" will be added instead of a parameter
@@ -95,15 +95,15 @@
 				put("Price (default)","economyPrice asc");
 				put("Takeoff Time", "departDate asc, departTime asc");
 				put("Takeoff Time (desc.)", "departDate desc, departTime desc");
-				put("Landing Time", "arriveTime asc");
-				put("Landing Time (desc.)", "arriveTime desc");
+				put("Landing Time", "arrivalTime asc");
+				put("Landing Time (desc.)", "arrivalTime desc");
 			}};
 			sort = orderOptions.get(sortBy);
 			
 			//QUERY TO BE SUBMITTED -
-			//uses the flights View - this table merges Flights, Airports, ArrivesAt, DepartsFrom & Airlines.
+			//uses the searchUtil View - this table merges Flights, Airports, ArrivesAt, DepartsFrom & Airlines.
 			String query = "SELECT * " +
-			"FROM  FlightsExpanded " + 
+			"FROM  searchUtil " + 
 			"WHERE  " + arrival +
 					    departure +
 					    date +
@@ -140,8 +140,8 @@
 			out.println("</tr>");
 			
 			String[] columns = new String[]{ 
-					"depDisplayName", "departDate", "departTime",
-					"arrDisplayName", "departDate", "arriveTime",
+					"departDisplayName", "departDate", "departTime",
+					"arriveDisplayName", "departDate", "arrivalTime",
 					"airlineDisplayName", "economyPrice", "noOfStops",};
 			
 			do{
@@ -153,11 +153,8 @@
 				}
 				out.println("<td>" + 
 				"<form action =\"bookFlight.jsp\">" +
-				"<input type = \"hidden\" name = \"flightInfo\"" +
-				"value = \"" + result.getString("departAir") +
-				"|" + result.getString("arriveAir") +
-				"|" + result.getString("airlineCode") +
-				"|" + result.getString("departDate") + "\" />" +
+				"<input type = \"hidden\" name = \"flightID\" " +
+				"value =\"" + result.getString("FlightID") + "\"/> " +
 				"<input type =\"submit\" value = \"Book it!\" " +
 				"</form>" + "</td>");
 				out.println("</tr>");
@@ -166,50 +163,6 @@
 			
 			con.close();
 			
-			/*
-			//Make an HTML table to show the results in:
-			out.print("<table>");
-
-			//make a row
-			
-			//make a column
-			
-			//print out column header
-			out.print("name");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			//depending on the radio button selection make a column header for Manufacturer if the beers table was selected and Address if the bars table was selected
-			if (entity.equals("beers"))
-				out.print("manf");
-			else
-				out.print("addr");
-			out.print("</td>");
-			out.print("</tr>");
-
-			//parse out the results
-			while (result.next()) {
-				//make a row
-				out.print("<tr>");
-				//make a column
-				out.print("<td>");
-				//Print out current bar or beer name:
-				out.print(result.getString("name"));
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current bar/beer additional info: Manf or Address
-				if (entity.equals("beers"))
-					out.print(result.getString("manf"));
-				else
-					out.print(result.getString("addr"));
-				out.print("</td>");
-				out.print("</tr>");
-
-			}
-			out.print("</table>");
-
-			//close the connection.
-			db.closeConnection(con);*/
 		} catch (Exception e) {
 			out.print(e);
 		}

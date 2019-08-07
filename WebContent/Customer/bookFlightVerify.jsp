@@ -12,52 +12,45 @@
 	<% 
 	try{
 		String flightInfo = request.getParameter("flightInfo");
-
 		///verify flight truly exists + get metadata
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();		
 		Statement stmt = con.createStatement();
-		
+		out.println("Contents of flightInfo: " + flightInfo);
 		String[] splits = flightInfo.split("\\|");
-		if(splits.length != 5){
+		if(splits.length != 2){
 			out.println("flight info meta data was compromised, please try again.");
-			out.println("expected five arguments but received" + flightInfo);
+			out.println("expected two arguments but received" + flightInfo);
 			return;
 		}
-	
-		String departAir = splits[0];
-		String arriveAir = splits[1];
-		String airlineCode = splits[2];
-		String departDate = splits[3];
-		String bci = splits[4];
-	
+		String flightID = splits[0];
+		String bci = splits[1];
+
 		String bookedClass = (bci.equals("3")) ? 
 				"economy" : ((bci.equals("2")) ? 
 				"business" : "firstClass");
 	
-		String query = 	"SELECT " + bookedClass + "Price " +
-						"FROM FlightsExpanded " +
-						"WHERE departAir = '" + departAir + "' and " +
-							   "arriveAir = '" + arriveAir + "' and " +
-							   "airlineCode = '" + airlineCode + "' and " +
-							   "departDate = '" + departDate + "'";
+		String query = 	"SELECT * " +
+						"FROM searchUtil " +
+						"WHERE FlightID = " + flightID;
 		ResultSet result = stmt.executeQuery(query);
 		
-					
 		String price = "";
+		String departAir = "";
+		String arriveAir = "";
 		if(result.next()){
 			price = result.getString(bookedClass + "Price");
+			departAir = result.getString("departAir");
+			arriveAir = result.getString("arriveAir");
 		}else{
 			out.println("Flight does not exist! Try again."); return;
 		}
-	
 				
 		out.println("You are about to book a flight from <b>" + departAir + " to " + 
 			arriveAir + "</b> in <b>" + bookedClass +  "</b> for $" + price + ".00. " + 
 				"Are you sure you wish to do this?<br/><br/>" +
 			"You will be able to cancel your reservation through your My Reservations page up to " +
 			"24 hours before the flight's departure.<br/><br/>");
-					
 		out.println( 
 		"<form action =\"bookFlightConfirmed.jsp\">" +
 		"<input type = \"hidden\" name = \"flightInfo\"" +

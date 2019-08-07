@@ -10,36 +10,25 @@
 <body>
 	<%
 	try {
-		String flightInfo = request.getParameter("flightInfo");
+		String flightID = request.getParameter("flightID");
 
 		//verify flight truly exists + get metadata
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();		
 		Statement stmt = con.createStatement();
-		
-		String[] splits = flightInfo.split("\\|");
-		if(splits.length != 4){
-			out.println("flight info meta data was compromised, please try again.");
-			out.println("expected four arguments but received" + flightInfo);
-			return;
-		}
-		
-		String departAir = splits[0];
-		String arriveAir = splits[1];
-		String airlineCode = splits[2];
-		String departDate = splits[3];
 					
-		String query = "SELECT * FROM FlightsExpanded WHERE " +
-				"departAir = '" + departAir + "' and " +
-				"arriveAir = '" + arriveAir + "' and " +
-				"airlineCode = '" + airlineCode + "' and " +
-				"departDate = '" + departDate + "'"
+		String query = "SELECT * FROM searchUtil WHERE " +
+				"FlightID = '" + flightID + "'"
 		;
 					
 		ResultSet flightTable = stmt.executeQuery(query);
 		String sr = "";	
+		String departAir = "null";
+		String departDate = "null";
+		String arriveAir = "null";
+		String airlineCode = "null";
 		String departTime = "null";
-		String arriveTime = "null";
+		String arrivalTime = "null";
 		String noOfStops = "null";
 		String economyPrice = "null";
 		String businessPrice = "null";
@@ -55,22 +44,27 @@
 				
 		try{
 			if(flightTable.next()){
+				departAir = flightTable.getString("departAir");
+				departDate = flightTable.getString("departDate");
+				arriveAir = flightTable.getString("arriveAir");
+				airlineCode = flightTable.getString("airlineCode");
 				departTime = flightTable.getString("departTime");
-				arriveTime = flightTable.getString("arriveTime");
+				//not found?
+				arrivalTime = flightTable.getString("arrivalTime");
 				noOfStops = flightTable.getString("noOfStops");
 				airlineDisplay = flightTable.getString("airlineDisplayName");
-				econCapacity = flightTable.getString("economyRemainingCapacity");
-				businessCapacity = flightTable.getString("businessRemainingCapacity");
-				firstCapacity = flightTable.getString("firstClassRemainingCapacity");
+				econCapacity = flightTable.getString("economyCapacity");
+				businessCapacity = flightTable.getString("businessCapacity");
+				firstCapacity = flightTable.getString("firstClassCapacity");
 				economyPrice = flightTable.getString("economyPrice");
 				businessPrice = flightTable.getString("businessPrice");
 				firstPrice = flightTable.getString("firstClassPrice");
-				depDisplay = flightTable.getString("depDisplayName");
-				arrDisplay = flightTable.getString("arrDisplayName");
-				depLocation = (flightTable.getString("depCity") + "," +
-				flightTable.getString("depState"));
-				arrLocation = (flightTable.getString("arrCity") + "," +
-						flightTable.getString("arrState"));
+				depDisplay = flightTable.getString("departDisplayName");
+				arrDisplay = flightTable.getString("arriveDisplayName");
+				depLocation = (flightTable.getString("departCity") + "," +
+				flightTable.getString("departState"));
+				arrLocation = (flightTable.getString("arriveCity") + "," +
+						flightTable.getString("arriveState"));
 			}
 		}catch(Exception e){ out.println(e.toString()); e.printStackTrace(); return; }
 		
@@ -80,7 +74,7 @@
 					"<li>Trip: " + depDisplay + " (" + departAir + ") ==> " +
 								   arrDisplay + " (" + arriveAir + ") </li>" + 
 					"<li>Departing on: " + departDate + " at " + departTime + "</li>" +
-					"<li>Arriving on: " + departDate + " at " + arriveTime + "</li>" +
+					"<li>Arriving on: " + departDate + " at " + arrivalTime + "</li>" +
 					"<li>Using: " + airlineDisplay + " (" + airlineCode + ") </li>" +
 					"<li>Number of stops: " + noOfStops + "</li>" +
 					"</ul><br/><br/>"
@@ -97,8 +91,8 @@
 			 //3 is the economy class indicator - pass previous flight primary keys
 			out.println("<td>" + 
 			"<form action =\"bookFlightVerify.jsp\">" +
-			"<input type = \"hidden\" name = \"flightInfo\"" +
-			"value = \"" + flightInfo + "|3" + "\" />" +
+			"<input type = \"hidden\" name = \"flightInfo\" " +
+			"value = \"" + flightID  + "|3" + "\" />" +
 			"<input type =\"submit\" value = \"Book Economy\" " +
 			"</form>" + "</td><br/>");
 		}else{ 
@@ -118,8 +112,8 @@
 			 //2 is the business class indicator - pass previous flight primary keys
 			out.println("<td>" + 
 			"<form action =\"bookFlightVerify.jsp\">" +
-			"<input type = \"hidden\" name = \"flightInfo\"" +
-			"value = \"" + flightInfo + "|2" + "\" />" +
+			"<input type = \"hidden\" name = \"flightInfo\" " +
+			"value = \"" + flightID  + "|2" + "\" />" +
 			"<input type =\"submit\" value = \"Book Business\" " +
 			"</form>" + "</td><br/>");
 		}else{ 
@@ -139,8 +133,8 @@
 			 //1 is the first class indicator - pass previous flight primary keys
 			out.println("<td>" + 
 			"<form action =\"bookFlightVerify.jsp\">" +
-			"<input type = \"hidden\" name = \"flightInfo\"" +
-			"value = \"" + flightInfo + "|1" + "\" />" +
+			"<input type = \"hidden\" name = \"flightInfo\" " +
+			"value = \"" + flightID  + "|1" + "\" />" +
 			"<input type =\"submit\" value = \"Book First-Class\" " +
 			"</form>" + "</td><br/>");
 		}else{ 
