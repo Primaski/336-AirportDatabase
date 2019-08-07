@@ -6,7 +6,7 @@
    <body>
    <h1> Create Account</h1>
    <br/>
-     <form action="checkCustomerAccountCreation.jsp" method="POST">
+     <form action="checkAccountCreation.jsp" method="POST">
        Username <font color="red"><b>*</b></font>: <br/> <input type="text" name="username" required/> <br/>
        Password <font color="red"><b>*</b></font>: <br/> <input type="password" name="password" required/> <br/>
        First Name <font color="red"><b>*</b></font>: <br/> <input type="text" name="first" required/> <br/>

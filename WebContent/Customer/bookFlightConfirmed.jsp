@@ -150,6 +150,8 @@
 		//decrement available capacity
 		try{
 			Statement stmt3 = con.createStatement();
+			
+			bookedClass = (bookedClass == "business") ? "businessClass" : bookedClass; //prevent renaming col
 			boolean success = false;
 			query = 		"UPDATE Flights " +
 							"SET " + bookedClass + "Capacity = if("
@@ -157,7 +159,8 @@
 							+ bookedClass + "Capacity - 1, 0) " +
 							"WHERE FlightID = '" + flightID + "'";
 			success = (stmt3.executeUpdate(query) == 1) ? true : false;
-		
+			bookedClass = (bookedClass == "businessClass") ? "business" : bookedClass; //revert
+			
 			if(!success){
 				//failure on step 3
 				out.println("Error in decrementing available capacity.");

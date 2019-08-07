@@ -23,7 +23,7 @@
 	<h2>Please choose an option below.</h2>
 	<li><a href="customerSearch.jsp">Search for available flights</a></li>
 	<br />
-	<li><a href="reservationLists.jsp">View My Reservations and Wait Listings</a></li>
+	<li><a href="viewReservations.jsp">View My Reservations and Wait Listings</a></li>
 	<br />
 	<li><a href="manageReservation.jsp">Modify My Reservations and Wait Listings</a></li>
 	<br /><br />
