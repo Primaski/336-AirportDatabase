@@ -101,7 +101,15 @@
 			"<input type =\"submit\" value = \"Book Economy\" " +
 			"</form>" + "</td><br/>");
 		}else{ 
-			//TO-DO: Wait list
+			//Wait list
+			out.println("<td>" + 
+			"<form action =\"waitlistFlightVerify.jsp\" method = \"POST\">" +
+			"<input type = \"hidden\" name = \"flightInfo\" " +
+			"value = \"" + flightID  + "|3" + "\" />" +
+			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
+			"value = 1" + "\" />" : "") +
+			"<input type =\"submit\" value = \"Waitlist for Economy\" " +
+			"</form>" + "</td><br/>");
 		}
 		
 		out.println("</h3>");
@@ -124,7 +132,14 @@
 			"<input type =\"submit\" value = \"Book Business\" " +
 			"</form>" + "</td><br/>");
 		}else{ 
-			//TO-DO: Wait list
+			out.println("<td>" + 
+			"<form action =\"waitlistFlightVerify.jsp\" method = \"POST\">" +
+			"<input type = \"hidden\" name = \"flightInfo\" " +
+			"value = \"" + flightID  + "|2" + "\" />" +
+			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
+			"value = 1" + "\" />" : "") +
+			"<input type =\"submit\" value = \"Waitlist for Business Class\" " +
+			"</form>" + "</td><br/>");
 		}
 		
 		out.println("</h3>");
@@ -147,7 +162,15 @@
 			"<input type =\"submit\" value = \"Book First-Class\" " +
 			"</form>" + "</td><br/>");
 		}else{ 
-			///TO-DO: Wait list
+			//Wait list
+			out.println("<td>" + 
+			"<form action =\"waitlistFlightVerify.jsp\" method = \"POST\">" +
+			"<input type = \"hidden\" name = \"flightInfo\" " +
+			"value = \"" + flightID  + "|1" + "\" />" +
+			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
+			"value = 1" + "\" />" : "") +
+			"<input type =\"submit\" value = \"Waitlist for First-Class\" " +
+			"</form>" + "</td><br/>");
 		}
 		out.println("</h3>");
 		

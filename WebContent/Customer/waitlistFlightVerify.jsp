@@ -57,12 +57,11 @@
 					out.println("Error: Unable to receive capacity value");
 					return;
 				case 0:
-					out.println("<h1>Oops!</h1><br/>" +
-						"<h3>It turns out this flight is already full!</h3>");
-					//TO-DO: WAITLIST INSTEAD
-					return;
-				default:
 					break;
+				default:
+					out.println("<h1>Oops!</h1><br/>" +
+							"<h3>It turns out this flight has vacancy!</h3>");
+					//TO-DO: BOOK INSTEAD
 			}
 			price = result.getString(bookedClass + "Price");
 			departAir = result.getString("departAir");
@@ -71,18 +70,20 @@
 			out.println("Flight does not exist! Try again."); return;
 		}
 				
-		out.println("You are about to book a flight from <b>" + departAir + " to " + 
+		out.println("You are about to WAITLIST a flight from <b>" + departAir + " to " + 
 			arriveAir + "</b> in <b>" + bookedClass +  "</b> for $" + price + ".00. " + 
-				"Are you sure you wish to do this?<br/><br/>" +
-			"You will be able to cancel your reservation through your My Reservations page up to " +
-			"24 hours before the flight's departure.<br/><br/>");
+			"Are you sure you wish to do this?<br/><br/>" +
+			"If a seat becomes available, and you are first in the priority queue, you will be emailed, " + 
+			"and need to check in at <a href=\"viewReservations.jsp\"> Your Reservations </a> to" +
+			"confirm the booking. After 24 hours of inactivity, you will be dropped from the waitlist and " +
+			"moved to the back of the priority queue, which makes it essential to check your emails regularly.<br/><br/>");
 		out.println( 
-		"<form action =\"bookFlightConfirmed.jsp\" method = \"POST\">" +
+		"<form action =\"waitlistFlightConfirmed.jsp\" method = \"POST\">" +
 		"<input type = \"hidden\" name = \"flightInfo\"" +
 		"value = \"" + flightInfo + "\" />" +
 		((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
 		"value = 1" + "\" />" : "") +
-		"<input type =\"submit\" value = \"I'm sure, let's book it!\" " +
+		"<input type =\"submit\" value = \"I'm sure, put me on the waitlist!\" " +
 		"</form>" + "</td><br/>"
 		);
 	}catch(Exception e){
