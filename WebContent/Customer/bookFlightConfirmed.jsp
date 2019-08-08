@@ -19,6 +19,8 @@
 		*/
 		
 		String flightInfo = request.getParameter("flightInfo");
+		String round = request.getParameter("round");
+		boolean roundTrip = (round == null) ? false : true;
 		
 	/*////////////////////////////////////STEP 1////////////////////////////////////*/
 		
@@ -56,7 +58,10 @@
 	
 		String flightID = splits[0];
 		String bci = splits[1];
-	
+		String departAir = "";
+		String arriveAir = "";
+		String airline = "";
+					
 		String bookedClass = (bci.equals("3")) ? 
 				"economy" : ((bci.equals("2")) ? 
 				"business" : "firstClass");
@@ -79,6 +84,9 @@
 						"seats. Try a different class or flight!"); return;
 					}
 				}
+				departAir = flightExpanded.getString("departAir");
+				arriveAir = flightExpanded.getString("arriveAir");
+				airline = flightExpanded.getString("airlineCode");
 			}else{
 				//failure on step 2
 				out.println("Flight does not exist! Try again."); return;
@@ -203,11 +211,43 @@
 		String.format("%08d", Integer.parseInt(ticketID)) + "</b>. You can view this " +
 				"in your reservations.<br/><br/>");
 		
+		if(!roundTrip){
+			//implies round trip has not yet been booked	
+			out.println("Would you like to make this a round trip? If so, please select your expected return date.<br/>");
+
+			out.println("<form action=\"roundTripResults.jsp\" method=\"POST\">");
+			out.println("<b>Departing Date:</b><br/>");
+			out.println("<input type = \"hidden\" name = \"arriveair\" " +
+					"value = \"" + arriveAir + "\" />");
+			out.println("<input type = \"hidden\" name = \"departair\" " +
+					"value = \"" + departAir + "\" />");
+			out.println("<input type = \"hidden\" name = \"airline\" " +
+				"value = \"" + airline + "\" />");
+			out.println("<input name = \"arrivemonth\" maxlength ="
+				+ "\"2\" size = \"2\" type = \"number\" onkeypress=\"return isNo(event)\"/>");
+			out.println("<input name = \"arriveday\" maxlength = \"2\"" 
+				+ "size = \"2\" type = \"number\" onkeypress=\"return isNo(event)\"/>");
+			out.println("<br/>(* Month, Day)<br/>");
+			out.println("<input type=\"submit\" value=\"Submit\"/>");
+			out.println("</form>");
+		}else{
+			out.println("Your round trip is secured!");
+		}
+		
 		out.println("<a href=\"customerIndex.jsp\">Return to Main Menu</a>");
 		
 		
 		
 	%>
 
+	<script>
+	function isNo(evt){
+	    var charCode = (evt.which) ? evt.which : event.keyCode;
+	    if (charCode > 31 && (charCode < 48 || charCode > 57)){ 
+	    	return false; 
+	    	}
+	    return true;
+	};
+	</script>
 </body>
 </html>

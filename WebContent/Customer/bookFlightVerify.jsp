@@ -12,6 +12,9 @@
 	<% 
 	try{
 		String flightInfo = request.getParameter("flightInfo");
+		String round = request.getParameter("round");
+		boolean roundTrip = (round == null) ? false : true;
+		
 		///verify flight truly exists + get metadata
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();		
@@ -51,9 +54,11 @@
 			"You will be able to cancel your reservation through your My Reservations page up to " +
 			"24 hours before the flight's departure.<br/><br/>");
 		out.println( 
-		"<form action =\"bookFlightConfirmed.jsp\">" +
+		"<form action =\"bookFlightConfirmed.jsp\" method = \"POST\">" +
 		"<input type = \"hidden\" name = \"flightInfo\"" +
 		"value = \"" + flightInfo + "\" />" +
+		((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
+		"value = 1" + "\" />" : "") +
 		"<input type =\"submit\" value = \"I'm sure, let's book it!\" " +
 		"</form>" + "</td><br/>"
 		);

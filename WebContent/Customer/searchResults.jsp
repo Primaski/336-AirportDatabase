@@ -46,11 +46,10 @@
 			String date = "";
 			try{
 			date = ((departMo.equals("") || departMo == null) || 
-					(departDay.equals("") || departMo == null)) ? "" : 
+					(departDay.equals("") || departDay == null)) ? "" : 
 					" and departDate like '2019-" + 
 					String.format("%02d", Integer.parseInt(departMo)) + "-" + 
 					String.format("%02d", Integer.parseInt(departDay))  + "%'";
-			out.println("Date: " + date + "\n\n\n");
 			}catch (Exception e){
 				out.println(e.toString());
 				return;
@@ -152,7 +151,7 @@
 					out.println("</td>");
 				}
 				out.println("<td>" + 
-				"<form action =\"bookFlight.jsp\">" +
+				"<form action =\"bookFlight.jsp\" method = \"POST\">" +
 				"<input type = \"hidden\" name = \"flightID\" " +
 				"value =\"" + result.getString("FlightID") + "\"/> " +
 				"<input type =\"submit\" value = \"Book it!\" " +

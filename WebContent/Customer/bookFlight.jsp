@@ -11,6 +11,8 @@
 	<%
 	try {
 		String flightID = request.getParameter("flightID");
+		String round = request.getParameter("round");
+		boolean roundTrip = (round == null) ? false : true;
 
 		//verify flight truly exists + get metadata
 		ApplicationDB db = new ApplicationDB();	
@@ -68,7 +70,8 @@
 			}
 		}catch(Exception e){ out.println(e.toString()); e.printStackTrace(); return; }
 		
-		out.println("<h1>Booking Flight: " + departAir + " ==> " + arriveAir + "</h1><br/><br/>");
+		out.println("<h1>Booking " + ((roundTrip) ? "Return " : "")
+		+ "Flight: " + departAir + " ==> " + arriveAir + "</h1><br/><br/>");
 		
 		out.println("<h3><ul>" +
 					"<li>Trip: " + depDisplay + " (" + departAir + ") ==> " +
@@ -90,9 +93,11 @@
 		if(isOpen){ 
 			 //3 is the economy class indicator - pass previous flight primary keys
 			out.println("<td>" + 
-			"<form action =\"bookFlightVerify.jsp\">" +
+			"<form action =\"bookFlightVerify.jsp\" method = \"POST\">" +
 			"<input type = \"hidden\" name = \"flightInfo\" " +
 			"value = \"" + flightID  + "|3" + "\" />" +
+			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
+			"value = 1" + "\" />" : "") +
 			"<input type =\"submit\" value = \"Book Economy\" " +
 			"</form>" + "</td><br/>");
 		}else{ 
@@ -114,6 +119,8 @@
 			"<form action =\"bookFlightVerify.jsp\">" +
 			"<input type = \"hidden\" name = \"flightInfo\" " +
 			"value = \"" + flightID  + "|2" + "\" />" +
+			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
+			"value = 1" + "\" />" : "") +
 			"<input type =\"submit\" value = \"Book Business\" " +
 			"</form>" + "</td><br/>");
 		}else{ 
@@ -135,6 +142,8 @@
 			"<form action =\"bookFlightVerify.jsp\">" +
 			"<input type = \"hidden\" name = \"flightInfo\" " +
 			"value = \"" + flightID  + "|1" + "\" />" +
+			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
+			"value = 1" + "\" />" : "") +
 			"<input type =\"submit\" value = \"Book First-Class\" " +
 			"</form>" + "</td><br/>");
 		}else{ 
