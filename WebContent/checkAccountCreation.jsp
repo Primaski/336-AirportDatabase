@@ -20,9 +20,8 @@
 		String state = request.getParameter("state");
 		String zip = request.getParameter("zipCode");
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection(
-				"jdbc:mysql://summercs336.ch54a1ii8pba.us-east-2.rds.amazonaws.com:3306/TravelDB", "sqlAdmin",
-				"sqlPassword");
+		ApplicationDB db = new ApplicationDB();
+		Connection con = db.getConnection();
 		Statement st = con.createStatement();
 		ResultSet rs;
 		if(userid == "" || userid == null){

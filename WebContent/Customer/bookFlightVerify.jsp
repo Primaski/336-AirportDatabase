@@ -16,7 +16,6 @@
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();		
 		Statement stmt = con.createStatement();
-		out.println("Contents of flightInfo: " + flightInfo);
 		String[] splits = flightInfo.split("\\|");
 		if(splits.length != 2){
 			out.println("flight info meta data was compromised, please try again.");

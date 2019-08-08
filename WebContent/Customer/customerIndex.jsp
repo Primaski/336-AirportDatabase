@@ -5,7 +5,6 @@
 </head>
 <body>
 	<%
-	//.
 	String failureMessage = "<h1>Oops! It seems you're not logged in.</h1>";
 	try{
 		Object user = session.getAttribute("user");
@@ -25,7 +24,7 @@
 	<br />
 	<li><a href="viewReservations.jsp">View My Reservations and Wait Listings</a></li>
 	<br />
-	<li><a href="manageReservation.jsp">Modify My Reservations and Wait Listings</a></li>
+	<li><a href="manageReservations.jsp">Modify My Reservations and Wait Listings</a></li>
 	<br /><br />
 	<li>To join the wait list for a full flight, search for the flight using our 
 	search tool, and then click "Join wait list" if there is no remaining capacity.</li>

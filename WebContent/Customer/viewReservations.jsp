@@ -105,5 +105,8 @@
 	}
 	
 	%>
+	
+	<h3>Were you looking to cancel a reservation?<br/>
+	<a href = "deleteReservation.jsp">Delete My Reservations</a></h3>
 </body>
 </html>
