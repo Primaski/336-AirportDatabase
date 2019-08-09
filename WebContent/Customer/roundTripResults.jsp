@@ -16,7 +16,6 @@
 		Statement stmt = con.createStatement();
 		String arriveAir = request.getParameter("departair"); //flipped for round trip
 		String departAir = request.getParameter("arriveair"); //flipped for round trip
-		String airline = request.getParameter("airline");
 		String arriveMo = request.getParameter("arrivemonth");
 		String arriveDay = request.getParameter("arriveday");
 
@@ -35,7 +34,6 @@
 		
 		String arrival = "arriveAir = '" + arriveAir + "' and ";
 		String departure = "departAir = '" + departAir + "' and ";
-		String reqAirline = "airlineCode = '" + airline + "' and ";
 		
 		
 		//QUERY TO BE SUBMITTED -
@@ -44,7 +42,6 @@
 		"FROM  searchUtil " + 
 		"WHERE  " + arrival +
 				    departure +
-				    reqAirline +
 				    date +
 		"ORDER BY arrivalTime";
 		
