@@ -26,10 +26,10 @@
 			ResultSet resultSet = null;
 			resultSet = stmt.executeQuery(sql);
 			if(resultSet.next() == false){
-				out.println("This month has no sales.");
+				out.println("This airport has no traffic.");
 			}else{
 				do{
-					out.println("  		   TicketID:   		  " + resultSet.getString(1) + "  		   Username:   		  " + resultSet.getString(2) + "  		   Price:  		   " + resultSet.getString(3) +"			Date:		 " +resultSet.getString(4)+ "<br/>");
+					out.println("  		   RouteID:   		  " + resultSet.getString(1) + "  		   Airline Code:   		  " + resultSet.getString(2) + "  		   departs from:   		  " + resultSet.getString(3) + "  		   Arrives at:   		  " +resultSet.getString(4) + "  		   departs at:   		  " +resultSet.getString(4) + "  		   arrives at:   		  " +resultSet.getString(4)  + "  		   Stopovers:   		  " +resultSet.getString(7)+ "<br/>");
 				}while(resultSet.next());
 			}
 			con.close();
