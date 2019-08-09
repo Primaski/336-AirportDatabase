@@ -38,9 +38,9 @@
 			
 		%>
 
-		Departure Date <font color="red"><b>*</b></font>: <br /> <input
-			type="text" name="depDate" required /><br /> 
-		Departure Time <font color="red"><b>*</b></font>: <br /> <input type="text" name="depTime"			required /> <br />
+		Departure Date(YYYY-MM-DD) <font color="red"><b>*</b></font>: <br /> <input
+			type="date" name="depDate" required /><br /> 
+		Arrival Date(YYYY-MM-DD)  <font color="red"><b>*</b></font>: <br /> <input type="date" name="arrDate"			required /> <br />
 		Tail Number:<font color="red"><b>*</b></font>: <br /> 
 <%
 			

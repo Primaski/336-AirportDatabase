@@ -49,15 +49,9 @@
 			out.println("No flight information passed."); 
 			return;
 		}
-		String[] splits = flightInfo.split("\\|");
-		if(splits.length != 2){
-			out.println("flight info meta data was compromised, please try again.");
-			out.println("expected five arguments but received" + flightInfo);
-			return;
-		}
 	
-		String flightID = splits[0];
-		String bci = splits[1];
+		String flightID = flightInfo;
+		String bci = request.getParameter("flightClass").value;
 		String departAir = "";
 		String arriveAir = "";
 		String airline = "";

@@ -5,86 +5,75 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Airport Update Results</title>
+<title>accountRec</title>
 </head>
 <body>
 	<%
-		String airportcode = request.getParameter("AirportCode");
-		String airportName = request.getParameter("AirportName");
-		String address = request.getParameter("Address");
-		String city = request.getParameter("City");
-		String state = request.getParameter("State");
-		String country = request.getParameter("Country");
-		String zip = request.getParameter("zipCode");
+		String FlightID = request.getParameter("FlightID");
+		String RouteID = request.getParameter("RouteID");
+		String depDate = request.getParameter("depDate");
+		String arrDate = request.getParameter("arrDate");
+		String TailNumber = request.getParameter("tailNum");
+		String econ = request.getParameter("economyPrice");
+		String bcp = request.getParameter("businessClassPrice");
+		String fcp = request.getParameter("firstClassPrice");
+		String firstCapacity="";
+		String businessCapacity="";
+		String economyCapacity="";
 
-		Class.forName("com.mysql.jdbc.Driver");
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection(
 				"jdbc:mysql://summercs336.ch54a1ii8pba.us-east-2.rds.amazonaws.com:3306/TravelDB", "sqlAdmin",
 				"sqlPassword");
 		Statement st = con.createStatement();
-		ResultSet rs;
-		if (airportcode == "" || airportcode == null || airportcode.length() > 3) {
-			out.println("Please provide a valid airport Code");
-			out.println("<a href=\"addAirport.jsp\">Try Again</a>");
-			return;
-		} else {
-			if (!airportcode.equals(session.getAttribute("editAirportCode"))) {
+		 
 
-				rs = st.executeQuery("select * from Airports where airportcode ='" + airportcode + "'");
+		String str1 = "SELECT AirlineCode FROM Aircrafts WHERE TailNumber = '" + TailNumber + "'";
+		String compAirline="";
+		boolean isValid = false;
+		Statement st1 = con.createStatement();
+		ResultSet rs = st1.executeQuery(str1);
+		if (rs.next()) {
+			compAirline = rs.getString(1);
 
-				if (rs.next()) {
-					out.println("Sorry, this Airport Code is already in use!");
-					out.println("<a href=\"addAirport.jsp\">Try Again</a>");
-					return;
-				} else {
-
-					st.executeUpdate("UPDATE Airports SET airportCode = '" + airportcode + "' WHERE displayName = '"
-							+ airportName + "' AND address ='" + address + "' AND city = '" + city
-							+ "' AND state ='" + state + "' AND country = '" + country + "' AND zipCode = '" + zip
-							+ "'");
-					out.println("Successfully Edited airport code:  " + airportcode + "<br/>");
-
-					if (airportName == null || !airportName.equals(session.getAttribute("editAirportName"))) {
-						st.executeUpdate("UPDATE Airports SET displayName = '" + airportName
-								+ "' WHERE airportcode = '" + airportcode + "'");
-						out.println("Successfully Edited " + airportcode + "'s Name!" + "<br/>");
-					} else {
-						out.println("Name was not updated." + "<br/>");
-					}
-					if (!address.equals(session.getAttribute("editAddress"))) {
-						st.executeUpdate("UPDATE Airports SET address = '" + address + "' WHERE airportcode = '"
-								+ airportcode + "'");
-						out.println("Successfully Edited " + airportcode + "'s Address!" + "<br/>");
-					} else {
-						out.println("Address was not updated." + "<br/>");
-					}
-					if (city == null || !city.equals(session.getAttribute("editCity"))) {
-						st.executeUpdate("UPDATE Airports SET city = '" + city + "' WHERE airportcode = '"
-								+ airportcode + "'");
-						out.println("Successfully Edited " + airportcode + "'s city!" + "<br/>");
-					} else {
-						out.println("City was not updated." + "<br/>");
-					}
-					if (state == null || !state.equals(session.getAttribute("editState"))) {
-						st.executeUpdate("UPDATE Airports SET state = '" + state + "' WHERE airportcode = '"
-								+ airportcode + "'");
-						out.println("Successfully Edited " + airportcode + "'s State!" + "<br/>");
-					} else {
-						out.println("State was not updated." + "<br/>");
-					}
-					if (!country.equals(session.getAttribute("editCountry"))) {
-						st.executeUpdate("UPDATE Airports SET country = '" + country + "' WHERE airportcode = '"
-								+ airportcode + "'");
-						out.println("Successfully Edited " + airportcode + "'s Country!" + "<br/>");
-					} else {
-						out.println("Country was not updated." + "<br/>");
-					}
-				}
-			}
 		}
 
-		con.close();
+		String str2 = "SELECT AirlineCode FROM Routes WHERE routeID = '" + RouteID + "'";
+		String compAirline2="";
+		Statement st2 = con.createStatement();
+		ResultSet rs2 = st2.executeQuery(str1);
+		if (rs2.next()) {
+			compAirline2 = rs2.getString(1);
+
+		}
+		if (compAirline.equals(compAirline2)) {
+			isValid = true;
+		}
+		if (FlightID == "" || FlightID == null || FlightID.length() > 6) {
+			out.println("Please provide a FlightID");
+			out.println("<a href=\"addFlight.jsp\">Try Again</a>");
+			return;
+		} else {
+			if (!FlightID.equals(session.getAttribute("editFID")))
+
+				rs = st.executeQuery("select * from Flights where FlightID ='" + FlightID + "'");
+
+			if (rs.next()) {
+				out.println("Sorry, this Flight ID is already in use!");
+				out.println("<a href=\"addFlight.jsp\">Try Again</a>");
+				return;
+			} else {
+				
+				
+					st.executeUpdate("UPDATE Flights SET FlightID = '"+FlightID+"' Where routeID = '"+ RouteID + "' AND departDate ='" + depDate + "' AND arriveDate= = '" + arrDate
+								+ "' AND TailNumber ='" + TailNumber + "'");
+						out.println("Successfully Edited airport code:  " + FlightID + "<br/>");
+
+						
+
+			
+			}
+		}
 	%>
 	<br />
 	<a href="customerRepIndex.jsp">Back to Rep Menu</a>
