@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -7,12 +7,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="adminSalesReport.jsp" method="POST">
-		Enter the number of the month example: 01
+	<form action="reservationList.jsp" method="POST">
+		Enter Username: 
+
+		<br /> <input type="text" name="Username" /> <br />
+		<input type="submit" value="Submit" />
 		<br>
-		enter
+		
+		Enter FlightID: 
+	<form action="reservationListFlight.jsp" method="POST">
+		<br /> <input type="text" name="FlightID"/> <br />
+		<input type="submit" value="Submit" />
 		<br>
-		<br /> <input type="text" name="month" required /> <br />
+		Enter Airline: 
+	<form action="reservationListFlight.jsp" method="POST">
+		<br /> <input type="text" name="FlightID"/> <br />
 		<input type="submit" value="Submit" />
 	</form>
 	<br />
