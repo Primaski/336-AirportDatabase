@@ -45,6 +45,10 @@
 			
 			
 			//First optional parameter is departing date. If blank, "" will be added instead of a parameter
+			if(Integer.parseInt(departDay) < 9){
+				out.println("You can't book a past flight.");
+				return;
+			}
 			String date = "";
 			try{
 			if(!flexible){
@@ -104,8 +108,8 @@
 			//Sort by - required, default is price
 			String sort = "";
 			Map<String,String> orderOptions = new HashMap<String,String>(){{
-				put("Price (default)","economyPrice asc");
-				put("Takeoff Time", "departDate asc, departTime asc");
+				put("Price","economyPrice asc");
+				put("Takeoff Time (default)", "departDate asc, departTime asc");
 				put("Takeoff Time (desc.)", "departDate desc, departTime desc");
 				put("Landing Time", "arrivalDate asc, arrivalTime asc");
 				put("Landing Time (desc.)", "arrivalDate desc, arrivalTime desc");

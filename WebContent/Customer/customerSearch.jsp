@@ -66,11 +66,12 @@
 		
 		out.print("<b>Sort by:</b><br/>");
 		out.print("<select name=\"sort\">");
-		out.print("<option>Price (default)</option>" +
-				  "<option>Takeoff Time</option>" +
+		out.print(
+				  "<option>Takeoff Time (default)</option>" +
 				  "<option>Takeoff Time (desc.)</option>" +
 				  "<option>Landing Time</option>" +
-				  "<option>Landing Time (desc.)</option>" 
+				  "<option>Landing Time (desc.)</option>" +
+				  "<option>Price</option>"
 				);
 		out.println("</select><br/>");
 		out.println("todo: number of stops, round trips, one way");
