@@ -8,7 +8,7 @@
 <title>Edit Selected Airport</title>
 </head>
 <body>
-	<h1>Edit Selected Airport: To change airport code, edit no other fields</h1>
+	<h1>Please Note! All other fields must remain unchanged to edit AirportCode</h1>
 	<br />
 	<%
 		try {
@@ -58,7 +58,7 @@
 		}
 	%>
 
-	 <form action="checkRes.jsp" method="POST">
+	 <form action="checkAirportUpdate.jsp" method="POST">
        AirportCode <font color="red"><b>*</b></font>: <br/> <input type="text" name="AirportCode" value=<%=session.getAttribute("editAirportCode")%> required/> <br/>
        AirportName <font color="red"><b>*</b></font>: <br/> <input type="text" name="AirportName" value=<%=session.getAttribute("editAirportName")%> required/> <br/>
        Address <font color="red"><b>*</b></font>: <br/> <input type="text" name="Address" value=<%=session.getAttribute("editAddress")%> required/> <br/>

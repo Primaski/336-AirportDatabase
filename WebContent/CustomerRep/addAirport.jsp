@@ -18,6 +18,6 @@
        <input type="submit" value="Add Airport"/>
      </form>
      <br/>
-     <a href="manageAirports.jsp">Return to Aircrafts Menu</a>
+     <a href="manageAirports.jsp">Return to Airports Menu</a>
    </body>
 </html>

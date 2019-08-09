@@ -8,8 +8,8 @@
 <title>Edit Selected Flight</title>
 </head>
 <body>
-	<h1>Edit Selected Flight: To change Flight ID, edit no other
-		fields</h1>
+	<h1>Edit Selected Flight: Only Flight ID can be changed.
+		</h1>
 	<br />
 	<%
 		try {

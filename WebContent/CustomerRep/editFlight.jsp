@@ -11,7 +11,7 @@
 </head>
 <body>
 	<h1>
-		<b>Select a Flight to Edit</b>
+		<b>Select a Flight ID to Edit</b>
 	</h1>
 	<b>Flights: </b>
 	<font color="red"><b>*</b></font>

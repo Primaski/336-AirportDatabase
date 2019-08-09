@@ -32,33 +32,33 @@
 					out.println("Sorry, this tailnumber is already in use!");
 					out.println("<a href=\"addAircraft.jsp\">Try Again</a>");
 					return;
-				}
-			} else {
+				} else {
 
-				st.executeUpdate("UPDATE Aircrafts SET Tailnumber = '" + TailNumber + "' WHERE model = '"
-						+ ModelNumber + "' AND color ='" + Color + "' AND AirlineCode = '" + AirlineCode + "'");
-				out.println("Successfully Edited Tailnumber:  " + TailNumber + "<br/>");
+					st.executeUpdate("UPDATE Aircrafts SET Tailnumber = '" + TailNumber + "' WHERE model = '"
+							+ ModelNumber + "' AND color ='" + Color + "' AND AirlineCode = '" + AirlineCode + "'");
+					out.println("Successfully Edited Tailnumber:  " + TailNumber + "<br/>");
 
-				if (ModelNumber == null || !ModelNumber.equals(session.getAttribute("editModelNum"))) {
-					st.executeUpdate("UPDATE Aircrafts SET model = '" + ModelNumber + "' WHERE Tailnumber = '"
-							+ TailNumber + "'");
-					out.println("Successfully Edited " + TailNumber + "'s Model number!" + "<br/>");
-				} else {
-					out.println("Model number was not updated." + "<br/>");
-				}
-				if (Color == null || !Color.equals(session.getAttribute("editColor"))) {
-					st.executeUpdate(
-							"UPDATE Aircrafts SET color = '" + Color + "' WHERE Tailnumber = '" + TailNumber + "'");
-					out.println("Successfully Edited " + TailNumber + "'s Color!" + "<br/>");
-				} else {
-					out.println("Color was not updated." + "<br/>");
-				}
-				if (!AirlineCode.equals(session.getAttribute("editAirlineCode"))) {
-					st.executeUpdate("UPDATE Aircrafts SET AirlineCode = '" + AirlineCode + "' WHERE Tailnumber = '"
-							+ TailNumber + "'");
-					out.println("Successfully Edited " + TailNumber + "'s Airline Code!" + "<br/>");
-				} else {
-					out.println("Airline Code was not updated." + "<br/>");
+					if (ModelNumber == null || !ModelNumber.equals(session.getAttribute("editModelNum"))) {
+						st.executeUpdate("UPDATE Aircrafts SET model = '" + ModelNumber + "' WHERE Tailnumber = '"
+								+ TailNumber + "'");
+						out.println("Successfully Edited " + TailNumber + "'s Model number!" + "<br/>");
+					} else {
+						out.println("Model number was not updated." + "<br/>");
+					}
+					if (Color == null || !Color.equals(session.getAttribute("editColor"))) {
+						st.executeUpdate("UPDATE Aircrafts SET color = '" + Color + "' WHERE Tailnumber = '"
+								+ TailNumber + "'");
+						out.println("Successfully Edited " + TailNumber + "'s Color!" + "<br/>");
+					} else {
+						out.println("Color was not updated." + "<br/>");
+					}
+					if (!AirlineCode.equals(session.getAttribute("editAirlineCode"))) {
+						st.executeUpdate("UPDATE Aircrafts SET AirlineCode = '" + AirlineCode
+								+ "' WHERE Tailnumber = '" + TailNumber + "'");
+						out.println("Successfully Edited " + TailNumber + "'s Airline Code!" + "<br/>");
+					} else {
+						out.println("Airline Code was not updated." + "<br/>");
+					}
 				}
 			}
 		}
