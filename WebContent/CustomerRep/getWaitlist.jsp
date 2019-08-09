@@ -30,8 +30,9 @@
 			airports.beforeFirst();//hi
 			out.println("</select> <br/>");
 		%>
-		<br /> <input type="submit" value="Edit Selected Flight" />
+		<br /> <input type="submit" value="Return Waitlist for Selected Flight" />
 	</form>
+		<a href="customerRepIndex.jsp">Return to Customer Rep Menu</a>
 	</body>
 	<script>
 	function isNo(evt){

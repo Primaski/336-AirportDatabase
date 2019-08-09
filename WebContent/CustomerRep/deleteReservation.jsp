@@ -25,17 +25,12 @@
 		ApplicationDB db = new ApplicationDB();
 		Connection con = db.getConnection();
 		Statement st = con.createStatement();
-		String query = "SELECT * FROM UserBought WHERE Username = '" + user.toString() + "'" +
-			" and FlightClass <> 'economy'"; //cannot delete economy flights
+		String query = "SELECT * FROM UserBought WHERE Username = '" + user.toString() + "'"; //cannot delete economy flights
 		ResultSet rs = st.executeQuery(query);
 		
 		//iterate through each ticket
-		if(!rs.next()){
-			out.println("<h1>You have no Business or First class Flights booked!</h1><br/>" + 
-				"<h3>Please be reminded that our policy is that only business and first class reservations can be cancelled.</h3>");
-			return;
-		}else{
-			out.println("Please be aware that you cannot delete ECONOMY reservations. As such, these will be excluded from the list.");
+		while(rs.next()){
+			//out.println("Please be aware that you cannot delete ECONOMY reservations. As such, these will be excluded from the list.");
 			out.println("<form action=\"deleteReservationConfirmed.jsp\" method=\"POST\">");
 			out.println("<h1>Cancellable Flight Reservations</h1>");
 			out.println("<select name =\"slatedForDeletion\">");
