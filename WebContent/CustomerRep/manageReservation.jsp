@@ -15,7 +15,7 @@
 	</h1>
 	<b>Customer Username: </b>
 	<font color="red"><b>*</b></font>
-	<form action="repBookFlight.jsp" method="POST">
+	<form action="repCreateRes.jsp" method="POST">
 		<%
 			ApplicationDB db = new ApplicationDB();
 			Connection con = db.getConnection();

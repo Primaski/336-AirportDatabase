@@ -15,8 +15,8 @@
 
 		String AirlineCode = request.getParameter("depDate");
 
-		String AirlineCode = request.getParameter("depTime");
-		String AirlineCode = request.getParameter("airlineCode");
+		//String AirlineCode = request.getParameter("depTime");
+		//String AirlineCode = request.getParameter("airlineCode");
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection(
 				"jdbc:mysql://summercs336.ch54a1ii8pba.us-east-2.rds.amazonaws.com:3306/TravelDB", "sqlAdmin",

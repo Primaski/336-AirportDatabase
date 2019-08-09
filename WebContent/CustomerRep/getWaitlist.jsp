@@ -4,34 +4,40 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html>
 <html>
+
+
 <head>
-<title>Get Waitlist</title>
+<title>Get Waitlist for Flight</title>
 </head>
 <body>
-	<h1>Search Flight Wait Lists By FlightID</h1>
-	<h2></h2>
-	<br />
+	<h1>
+		<b>Get Waitlist for Flight</b>
+	</h1>
+	<b>Flights: </b>
+	<font color="red"><b>*</b></font>
 	<form action="getWaitlistResults.jsp" method="POST">
-		Flight ID: <br /> 	<%
+		<%
 			ApplicationDB db = new ApplicationDB();
 			Connection con = db.getConnection();
 
 			Statement stmt = con.createStatement();
-			String str = "SELECT FlightID FROM Flights++++++";
+			String str = "SELECT FlightID FROM Flights";
 			ResultSet airports = stmt.executeQuery(str);
-			out.println("<select name =\"toBeEd\">");
+			out.println("<select name =\"toBeDisp\">");
 			while (airports.next()) {
 				out.println("<option>" + airports.getString(1));
 			}
 			airports.beforeFirst();//hi
 			out.println("</select> <br/>");
-		%> <br />
-		<input type="submit" value="Return Waitlist for Flight" />
+		%>
+		<br /> <input type="submit" value="Edit Selected Flight" />
 	</form>
-	<br />
-	<a href="customerRepIndex.jsp">Back to Rep Menu</a>
-
-
-
-</body>
+	</body>
+	<script>
+	function isNo(evt){
+	    var charCode = (evt.which) ? evt.which : event.keyCode;
+	    if (charCode > 31 && (charCode < 48 || charCode > 57)){ return false; }
+	    return true;
+	}
+	</script>
 </html>
