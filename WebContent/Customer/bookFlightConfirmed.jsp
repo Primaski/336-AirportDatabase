@@ -188,12 +188,12 @@
 		try{
 			Statement stmt4 = con.createStatement();
 			boolean success = false;
+			flightExpanded.next();
 			amountPaid = flightExpanded.getString(bookedClass + "Price");
 			
 			query = "INSERT into Buys (TicketID,Username,price,boughtOn) values ('" +
 					ticketID + "', '" + user.toString() + "', '" + amountPaid + "', '" + generatedOn + "')";
 			
-			out.println(query);
 			success = (stmt4.executeUpdate(query) == 1) ? true : false;
 			
 			if(!success){

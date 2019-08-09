@@ -107,8 +107,8 @@
 				put("Price (default)","economyPrice asc");
 				put("Takeoff Time", "departDate asc, departTime asc");
 				put("Takeoff Time (desc.)", "departDate desc, departTime desc");
-				put("Landing Time", "arrivalTime asc");
-				put("Landing Time (desc.)", "arrivalTime desc");
+				put("Landing Time", "arrivalDate asc, arrivalTime asc");
+				put("Landing Time (desc.)", "arrivalDate desc, arrivalTime desc");
 			}};
 			sort = orderOptions.get(sortBy);
 			
@@ -139,6 +139,7 @@
 			out.println("<h1>Results matching your criteria:</h1><br><br>");
 			out.println("<table border = \"1\">");
 			out.println("<tr>");
+			out.println("<th>ID</th>");
 			out.println("<th>Departing From</th>");
 			out.println("<th>On</th>");
 			out.println("<th>At</th>");
@@ -152,8 +153,9 @@
 			out.println("</tr>");
 			
 			String[] columns = new String[]{ 
+					"FlightID",
 					"departDisplayName", "departDate", "departTime",
-					"arriveDisplayName", "departDate", "arrivalTime",
+					"arriveDisplayName", "arrivalDate", "arrivalTime",
 					"airlineDisplayName", "economyPrice", "noOfStops",};
 			
 			do{

@@ -87,7 +87,9 @@
 			
 			try{
 				incFlightCapacityQuery = "UPDATE Flights SET " + 
-						flightClass + "Capacity = " + flightClass + "Capacity + 1 WHERE FlightID = '" 
+						((flightClass.equals("business")) ? "businessClass" : flightClass) + "Capacity = " + 
+						((flightClass.equals("business")) ? "businessClass" : flightClass)
+						+ "Capacity + 1 WHERE FlightID = '" 
 						+ flightID + "'";
 				Statement stmt4 = con.createStatement();
 				int rowsAffected = stmt4.executeUpdate(incFlightCapacityQuery);
