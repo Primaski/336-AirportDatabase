@@ -17,6 +17,8 @@
 			Connection con = db.getConnection();		
 
 			Statement stmt = con.createStatement();
+			String flexibl = request.getParameter("flexible");
+			boolean flexible = (flexibl == null) ? false : true;
 			String departAirport = request.getParameter("from");
 			String arriveAirport = request.getParameter("to");
 			String departMo = request.getParameter("departmonth");
@@ -45,11 +47,22 @@
 			//First optional parameter is departing date. If blank, "" will be added instead of a parameter
 			String date = "";
 			try{
-			date = ((departMo.equals("") || departMo == null) || 
-					(departDay.equals("") || departDay == null)) ? "" : 
-					" and departDate like '2019-" + 
-					String.format("%02d", Integer.parseInt(departMo)) + "-" + 
-					String.format("%02d", Integer.parseInt(departDay))  + "%'";
+			if(!flexible){
+				//strict date OR no preference
+				date = ((departMo.equals("") || departMo == null) || 
+						(departDay.equals("") || departDay == null)) ? "" : 
+						" and departDate like '2019-" + 
+						String.format("%02d", Integer.parseInt(departMo)) + "-" + 
+						String.format("%02d", Integer.parseInt(departDay))  + "%'";
+			}else if(flexible && date != ""){
+				//flexible date
+				String earliestDate = "2019-" + String.format("%02d", (Integer.parseInt(departMo) - 2)) + "-" + 
+						String.format("%02d", Integer.parseInt(departDay));
+				String latestDate = "2019-" + String.format("%02d", (Integer.parseInt(departMo) + 2)) + "-" + 
+						String.format("%02d", Integer.parseInt(departDay));
+				date = " and departDate between '2019-" +  earliestDate + "' AND '" +
+						latestDate + "'";
+			}
 			}catch (Exception e){
 				out.println(e.toString());
 				return;

@@ -41,6 +41,9 @@
 			+ "size = \"2\" type = \"number\" onkeypress=\"return isNo(event)\"/>");
 		out.println("<br/>(* Month, Day)<br/>");
 		
+		out.println("Flexible: ");
+		out.println("<input type=checkbox name=flexible value=True><br/>");
+		
 		out.print("<b>Airline:</b><br/>");
 		out.print("<select name=\"airline\">");
 		Statement stmt2 = con.createStatement();
