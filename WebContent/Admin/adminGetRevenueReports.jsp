@@ -17,7 +17,7 @@
 		Enter FlightID: 
 		<br /> <input type="text" name="FlightID"/> <br />
 		<input type="submit" value="Submit" />
-		
+		<br>
 		Enter AirlineCode: 
 		<br /> <input type="text" name="AirlineCode"/> <br />
 		<input type="submit" value="Submit" />
