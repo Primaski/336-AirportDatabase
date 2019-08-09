@@ -78,11 +78,11 @@
 			"24 hours before the flight's departure.<br/><br/>");
 		out.println( 
 		"<form action =\"bookFlightConfirmed.jsp\" method = \"POST\">" +
-		"<input type = \"hidden\" name = \"flightInfo\"" +
+		"<input type = \"hidden\" name = \"flightInfo\" " +
 		"value = \"" + flightInfo + "\" />" +
 		((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
 		"value = 1" + "\" />" : "") +
-		"<input type =\"submit\" value = \"I'm sure, let's book it!\" " +
+		"<input type =\"submit\" value = \"I'm sure, let's book it!\"> " +
 		"</form>" + "</td><br/>"
 		);
 	}catch(Exception e){

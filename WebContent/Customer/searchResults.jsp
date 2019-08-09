@@ -165,11 +165,12 @@
 					out.print(result.getString(col));
 					out.println("</td>");
 				}
-				out.println("<td>" + 
-				"<form action =\"bookFlight.jsp\" method = \"POST\">" +
+				
+				out.println("<td> " + 
+				"<form action = \"bookFlight.jsp\"> " +
 				"<input type = \"hidden\" name = \"flightID\" " +
-				"value =\"" + result.getString("FlightID") + "\"/> " +
-				"<input type =\"submit\" value = \"Book it!\" " +
+				"value = \"" + result.getString("FlightID") + "\"/> " +
+				"<input type =\"submit\" value = \"Book it!\" >" +
 				"</form>" + "</td>");
 				out.println("</tr>");
 			}while(result.next());

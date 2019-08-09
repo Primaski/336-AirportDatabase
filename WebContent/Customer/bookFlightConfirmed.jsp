@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.format.*, java.time.LocalDateTime"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -99,9 +99,11 @@
 		}
 		flightExpanded.beforeFirst(); //rewind
 		
+		/*NOT SUPPORTED IN THIS VERSION?
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
 		LocalDateTime now = LocalDateTime.now();
-		String generatedOn = dtf.format(now);
+		String generatedOn = dtf.format(now);*/
+		String generatedOn = "2019-11-18 22:00:00";
 		
 		
 		/*////////////////////////////////////STEP 3////////////////////////////////////*/
@@ -138,7 +140,7 @@
 		ResultSet ticket = null;
 		try{
 			Statement stmt2 = con.createStatement();
-			query = "SELECT * FROM Tickets WHERE generatedOn = (SELECT MAX(generatedOn) FROM Tickets)";
+			query = "SELECT * FROM Tickets WHERE TicketID = (SELECT MAX(TicketID) FROM Tickets)";
 			ticket = stmt2.executeQuery(query);
 			
 			if( !ticket.next() ){
