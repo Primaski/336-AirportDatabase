@@ -52,7 +52,7 @@
 		 
 			Statement stmt1 = con1.createStatement();
 			ResultSet airports1 = stmt1.executeQuery(str1);
-			out.println("<select name =\"TailNumber\"  >");
+			out.println("<select name =\"tailNum\"  >");
 			while (airports1.next()) {
 				out.println("<option>" + airports1.getString(1));
 			}

@@ -10,8 +10,12 @@
 <body>
 	<%
 		String TailNumber = request.getParameter("tailNum");
-		String ModelNumber = request.getParameter("modelNum");
-		String Color = request.getParameter("color");
+		String ModelNumber = request.getParameter("FlightID");
+		String Color = request.getParameter("RouteID");
+
+		String AirlineCode = request.getParameter("depDate");
+
+		String AirlineCode = request.getParameter("depTime");
 		String AirlineCode = request.getParameter("airlineCode");
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection(
