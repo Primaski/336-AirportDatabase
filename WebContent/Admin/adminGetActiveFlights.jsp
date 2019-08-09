@@ -24,7 +24,7 @@
 			Connection con = db.getConnection();		
 
 			Statement stmt = con.createStatement();
-			String sql = "Select flightID, max(k.pri) from (SELECT flightid, count(*) as pri FROM TravelDB.SpecificTo group by flightID) as k";
+			String sql = "Select flightID, max(k.pri) from (SELECT flightid, count(*) as pri FROM Tickets group by flightID) as k";
 			ResultSet resultSet = null;
 			resultSet = stmt.executeQuery(sql);
 			if(resultSet.next() == false){
