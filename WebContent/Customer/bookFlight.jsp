@@ -108,7 +108,7 @@
 			"value = \"" + flightID  + "|3" + "\" />" +
 			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
 			"value = 1" + "\" />" : "") +
-			"<input type =\"submit\" value = \"Waitlist for Economy\" " +
+			"<input type =\"submit\" value = \"Waitlist for Economy\"> " +
 			"</form>" + "</td><br/>");
 		}
 		

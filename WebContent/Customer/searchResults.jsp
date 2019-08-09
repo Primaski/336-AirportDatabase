@@ -45,9 +45,11 @@
 			
 			
 			//First optional parameter is departing date. If blank, "" will be added instead of a parameter
+			if(departDay != ""){
 			if(Integer.parseInt(departDay) < 9){
 				out.println("You can't book a past flight.");
 				return;
+			}
 			}
 			String date = "";
 			try{

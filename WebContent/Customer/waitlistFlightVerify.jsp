@@ -83,7 +83,7 @@
 		"value = \"" + flightInfo + "\" />" +
 		((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
 		"value = 1" + "\" />" : "") +
-		"<input type =\"submit\" value = \"I'm sure, put me on the waitlist!\" " +
+		"<input type =\"submit\" value = \"I'm sure, put me on the waitlist!\"> " +
 		"</form>" + "</td><br/>"
 		);
 	}catch(Exception e){
