@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
@@ -14,22 +15,26 @@
 <title>Insert title here</title>
 </head>
 <body>
+		<h1>Biggest Spender</h1>
 <%
 		try {
+	
 			
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();		
 
 			Statement stmt = con.createStatement();
 			String Month = request.getParameter("month");
-			String sql = "SELECT * FROM TravelDB.Buys where Buys.boughtOn like '2019-"+Month+"%'";
+			String sql = "Select username, max(k.pri) from(SELECT Username, sum(price) as pri FROM Buys  group by username ) as k";
 			ResultSet resultSet = null;
 			resultSet = stmt.executeQuery(sql);
 			if(resultSet.next() == false){
-				out.println("This month has no sales.");
+				out.println("There are no flights");
 			}else{
 				do{
-					out.println("  		   TicketID:   		  " + resultSet.getString(1) + "  		   Username:   		  " + resultSet.getString(2) + "  		   Price:  		   " + resultSet.getString(3) +"			Date:		 " +resultSet.getString(4)+ "<br/>");
+					out.println();
+					out.println("The biggest spender is: " + resultSet.getString(1)+"!!!!   With the record price spent of: "+ resultSet.getString(2));
+					
 				}while(resultSet.next());
 			}
 			con.close();

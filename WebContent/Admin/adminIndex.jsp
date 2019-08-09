@@ -22,7 +22,7 @@
 			by flight and by customer</a></li>
 	<br />
 
-	<li><a href="revenueSummaries.jsp">Return reports on revenue
+	<li><a href="adminGetRevenueReports.jsp">Return reports on revenue
 			for given flight, airline, or customer</a></li>
 	<br />
 
@@ -30,7 +30,7 @@
 			most total revenue</a></li>
 	<br />
 
-	<li><a href="activeFlights.jsp">Get list of most active
+	<li><a href="adminGetActiveFlights.jsp">Get list of most active
 			flights</a></li>
 	<br />
 
