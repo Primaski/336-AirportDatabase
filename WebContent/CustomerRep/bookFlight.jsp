@@ -93,7 +93,7 @@
 		if(isOpen){ 
 			 //3 is the economy class indicator - pass previous flight primary keys
 			out.println("<td>" + 
-			"<form action =\"bookFlightVerify.jsp\" method = \"POST\">" +
+			"<form action =\"bookFlightVerify.jsp\" method = \"POST\" >" +
 			"<input type = \"hidden\" name = \"flightInfo\" " +
 			"value = \"" + flightID  + "|3" + "\" />" +
 			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
@@ -103,7 +103,7 @@
 		}else{ 
 			//Wait list
 			out.println("<td>" + 
-			"<form action =\"waitlistFlightVerify.jsp\" method = \"POST\">" +
+			"<form action =\"waitlistFlightVerify.jsp\" method = \"POST\" >" +
 			"<input type = \"hidden\" name = \"flightInfo\" " +
 			"value = \"" + flightID  + "|3" + "\" />" +
 			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
@@ -124,21 +124,21 @@
 		if(isOpen){ 
 			 //2 is the business class indicator - pass previous flight primary keys
 			out.println("<td>" + 
-			"<form action =\"bookFlightVerify.jsp\">" +
+			"<form action =\"bookFlightVerify.jsp\" method = \"POST\" >" +
 			"<input type = \"hidden\" name = \"flightInfo\" " +
 			"value = \"" + flightID  + "|2" + "\" />" +
 			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
 			"value = 1" + "\" />" : "") +
-			"<input type =\"submit\" value = \"Book Business\" " +
+			"<input type =\"submit\" value = \"Book Business\"> " +
 			"</form>" + "</td><br/>");
 		}else{ 
 			out.println("<td>" + 
-			"<form action =\"waitlistFlightVerify.jsp\" method = \"POST\">" +
+			"<form action =\"waitlistFlightVerify.jsp\" method = \"POST\" >" +
 			"<input type = \"hidden\" name = \"flightInfo\" " +
 			"value = \"" + flightID  + "|2" + "\" />" +
 			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
 			"value = 1" + "\" />" : "") +
-			"<input type =\"submit\" value = \"Waitlist for Business Class\" " +
+			"<input type =\"submit\" value = \"Waitlist for Business Class\"> " +
 			"</form>" + "</td><br/>");
 		}
 		
@@ -154,22 +154,22 @@
 		if(isOpen){ 
 			 //1 is the first class indicator - pass previous flight primary keys
 			out.println("<td>" + 
-			"<form action =\"bookFlightVerify.jsp\">" +
+			"<form action = \"bookFlightVerify.jsp\" method = \"POST\" > " +
 			"<input type = \"hidden\" name = \"flightInfo\" " +
-			"value = \"" + flightID  + "|1" + "\" />" +
+			"value = \"" + flightID  + "|1" + "\" /> " +
 			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
-			"value = 1" + "\" />" : "") +
-			"<input type =\"submit\" value = \"Book First-Class\" " +
+			"value = 1" + "\" /> " : "") +
+			"<input type =\"submit\" value = \"Book First-Class\"> " +
 			"</form>" + "</td><br/>");
 		}else{ 
 			//Wait list
 			out.println("<td>" + 
-			"<form action =\"waitlistFlightVerify.jsp\" method = \"POST\">" +
+			"<form action = \"waitlistFlightVerify.jsp\" method = \"POST\" > " +
 			"<input type = \"hidden\" name = \"flightInfo\" " +
-			"value = \"" + flightID  + "|1" + "\" />" +
+			"value = \"" + flightID  + "|1" + "\" /> " +
 			((roundTrip) ? "<input type = \"hidden\" name = \"round\" " +
 			"value = 1" + "\" />" : "") +
-			"<input type =\"submit\" value = \"Waitlist for First-Class\" " +
+			"<input type =\"submit\" value = \"Waitlist for First-Class\"> " +
 			"</form>" + "</td><br/>");
 		}
 		out.println("</h3>");

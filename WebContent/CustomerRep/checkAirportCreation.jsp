@@ -61,7 +61,7 @@
 		}
 	%>
 	<br />
-	<a href="customerRepIndex.jsp">Back to Customer</a>
+	<a href="customerRepIndex.jsp">Back to Customer Rep</a>
 
 </body>
 </html>

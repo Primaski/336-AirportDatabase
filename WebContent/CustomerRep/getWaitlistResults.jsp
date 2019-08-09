@@ -20,7 +20,7 @@
 		
 			Statement stmt = con.createStatement();
 		
-			String query="Select * from OnWaitingList";
+			String query="Select * from WaitsFor Where FlightID = '"+waitlistID+"'";
 			ResultSet result = stmt.executeQuery(query);
 			if(result.next() == false){
 				out.println("Result set is empty.");

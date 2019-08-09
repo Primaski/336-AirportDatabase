@@ -105,8 +105,8 @@
 			int rowsModified = st.executeUpdate("insert into Flights "
 					+ "(FlightID, routeID, departDate, arriveDate, TailNumber, firstClassPrice, businessClassPrice,economyPrice, firstClassCapacity, businessClassCapacity, economyCapacity) values ('"
 					+ FlightID + "','" + RouteID + "','" + depDate + "','" + arrDate + "','" + TailNumber + "','"
-					+ fcp + "','" + bcp + "','" + econ + "','" + firstCapacity + "','" + businessCapacity + "','"
-					+ economyCapacity + "')");
+					+ fcp + "','" + bcp + "','" + econ + "','" + Integer.parseInt(firstCapacity) + "','" + businessCapacity + "','"
+					+ Integer.parseInt(economyCapacity) + "')");
 			if (rowsModified != 0) {
 				out.println("Successfully created Flight " + FlightID + "! Have a safe Trip!");
 

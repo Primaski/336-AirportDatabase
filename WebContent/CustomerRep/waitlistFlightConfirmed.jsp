@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.format.*, java.time.LocalDateTime"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Booking Flight Status</title>
+<title>Booking Waitlist Status</title>
 </head>
 <body>
 	<%
 		/*
-		Steps in booking a flight after primary keys are retrieved:
+		Operates similarly, but not equivalently to "bookFlightConfirmed.jsp"
 			1. Verify user is logged in
-			2. Verify again that flight exists and is not full
-			3. Generate ticket and store ID
-			4. Put customer - ticket in relations table "Buys"
+			2. Verify again that flight exists and flight is truly full
+			3. Increment next highest priority number
+			4. Put customer - flight in relations table "WaitsFor"
 			5. Give confirmation message
 		*/
 		
@@ -78,10 +78,9 @@
 					out.println("Flight does not exist! Try again."); return;
 				}else{
 					int remaining = Integer.parseInt(flightExpanded.getString(bookedClass + "Capacity"));
-					if(remaining < 1){
+					if(remaining > 0){
 						//failure on step 2 - capacity
-						out.println("Unfortunately, " + bookedClass + " on this flight has no more open " +
-						"seats. Try a different class or flight!"); return;
+						out.println("This flight already has open spots! You must have landed on a wrong page!"); return;
 					}
 				}
 				departAir = flightExpanded.getString("departAir");
@@ -99,84 +98,34 @@
 		}
 		flightExpanded.beforeFirst(); //rewind
 		
-		/*NOT SUPPORTED IN THIS VERSION?
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
 		LocalDateTime now = LocalDateTime.now();
-		String generatedOn = dtf.format(now);*/
-		String generatedOn = "2019-11-18 22:00:00";
+		String generatedOn = dtf.format(now);
 		
 		
 		/*////////////////////////////////////STEP 3////////////////////////////////////*/
 		
-		try{
-			String departTime = "";
-			flightExpanded.next();
-			departTime = flightExpanded.getString("departTime");
-			flightExpanded.beforeFirst(); //rewind
-			
-		//generate ticket
-			query = "INSERT INTO Tickets (FlightID, flightClass, generatedOn) " + 
-					"values ('" + flightID + "', '" + bookedClass + "', '" + generatedOn + "')";
-			int rowsAffected = con.createStatement().executeUpdate(query);
-			boolean success = (rowsAffected == 1) ? true : false;
-		
-			if(!success){
-				//failure on step 3	
-				out.println("Critical failure in generating ticket (0 database rows were" + 
-				" affected). Please contact system administrator.");
-				System.out.println("Query `" + query + "` was attempted, and " + rowsAffected
-						+ " rows were modified, resulting in this error.");
-				return;
-			}
-		}catch(Exception e){
-			//failure on step 3
-			out.println("Failure on step 3, see stack trace.");
-			e.printStackTrace();
-			return;
-		}
-		
-		//get ticket ID - latest ticket
-		String ticketID = "";
-		ResultSet ticket = null;
-		try{
-			Statement stmt2 = con.createStatement();
-			query = "SELECT * FROM Tickets WHERE TicketID = (SELECT MAX(TicketID) FROM Tickets)";
-			ticket = stmt2.executeQuery(query);
-			
-			if( !ticket.next() ){
-				//failure on step 3
-				out.println("Failed to find latest generated ticket. Contact system administrator.");
-				System.out.println("Query " + query + " returned no results.");
-				return;
-			}
-		ticketID = ticket.getString("ticketID");
-		}catch(Exception e){
-			//failure on step 3
-			out.println("Failure on step 3, see stack trace.");
-			e.printStackTrace();
-			return;
-		}
-
-		//decrement available capacity
+		String priorityQueueNo = "";
 		try{
 			Statement stmt3 = con.createStatement();
 			
-			bookedClass = (bookedClass == "business") ? "businessClass" : bookedClass; //prevent renaming col
-			boolean success = false;
-			query = 		"UPDATE Flights " +
-							"SET " + bookedClass + "Capacity = if("
-							+ bookedClass + "Capacity > 0, "
-							+ bookedClass + "Capacity - 1, 0) " +
-							"WHERE FlightID = '" + flightID + "'";
-			success = (stmt3.executeUpdate(query) == 1) ? true : false;
-			bookedClass = (bookedClass == "businessClass") ? "business" : bookedClass; //revert
+			String getPriorityQueueNo = "SELECT IFNULL(max(priority) + 1, 1) AS `maximal` FROM WaitsFor " + 
+				"WHERE FlightID = '" + flightID + "'";
 			
-			if(!success){
-				//failure on step 3
-				out.println("Error in decrementing available capacity.");
+			ResultSet newPrior = stmt3.executeQuery(getPriorityQueueNo);
+			if(!newPrior.next()){
+				//if this happens, must be an error, because if null it will return 1
+				out.println("`getPriorityQueueNo` unexpectedly returned no values. Failure at step 3.");
 				return;
 			}
-		}catch (Exception e){
+			priorityQueueNo = newPrior.getString("maximal");
+			try{
+				Integer.parseInt(priorityQueueNo);
+			}catch(Exception e){
+				out.println("Expected an integer for priorityQueueNo, but received something else. Failure on step 3.");
+				return;
+			}
+		}catch(Exception e){
 			//failure on step 3
 			out.println("Failure on step 3, see stack trace.");
 			e.printStackTrace();
@@ -184,18 +133,22 @@
 		}
 		
 		/*////////////////////////////////////STEP 4////////////////////////////////////*/
-		//req fields: TicketID (step 3), Username (step 1), generatedOn (step 2), amountPaid (step 4)
 		
 		String amountPaid = "";
 		try{
+			out.println("got here");
 			Statement stmt4 = con.createStatement();
 			boolean success = false;
 			flightExpanded.next();
+			out.println("got here");
 			amountPaid = flightExpanded.getString(bookedClass + "Price");
+			out.println("got here");
 			
-			query = "INSERT into Buys (TicketID,Username,price,boughtOn) values ('" +
-					ticketID + "', '" + user.toString() + "', '" + amountPaid + "', '" + generatedOn + "')";
+			query = "INSERT into WaitsFor (FlightID,Username,priority,price,flightclass,boughtOn) values ('" +
+					flightID + "', '" + user.toString() + "', '" + priorityQueueNo + "' , '" + 
+					amountPaid + "', '" + bookedClass + "', '" + generatedOn + "')";
 			
+			out.println(query);
 			success = (stmt4.executeUpdate(query) == 1) ? true : false;
 			
 			if(!success){
@@ -211,13 +164,15 @@
 		}
 		
 		/*////////////////////////////////////STEP 5////////////////////////////////////*/
-		out.println("Successfully purchased your ticket! Your ticket ID is : <b>" +
-		String.format("%08d", Integer.parseInt(ticketID)) + "</b>. You can view this " +
+		out.println("<h1>Waitlist Flight</h1>");
+		out.println("Successfully purchased waitlisted your flight! You can view this " +
 				"in your reservations.<br/><br/>");
 		
 		if(!roundTrip){
 			//implies round trip has not yet been booked	
-			out.println("Would you like to make this a round trip? If so, please select your expected return date.<br/>");
+			out.println("Would you like to make this a round trip? If so, please select your expected return date.<br/>" +
+			"Note that booking a return flight while never being granted a ticket for the departure flight is entirely possible, " + 
+			"and it is STRONGLY recommended that you postpone booking a return flight until you've been accepted for a departure flight.<br/>");
 
 			out.println("<form action=\"roundTripResults.jsp\" method=\"POST\">");
 			out.println("<b>Departing Date:</b><br/>");
