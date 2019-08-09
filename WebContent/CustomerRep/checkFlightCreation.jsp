@@ -114,6 +114,7 @@
 				out.println("No entries were added.");
 			}
 		}
+		con.close();
 	%>
 	<br />
 	<a href="customerRepIndex.jsp">Back to Rep Menu</a>

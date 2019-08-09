@@ -68,7 +68,7 @@
 			out.println("</select>");
 			out.println("<input type=\"submit\" value=\"Submit\"/>");
 			out.println("</form>");
-		}
+		}con.close();
 	%>
 	<h3><br/>This is irreversible. Please double check before pressing Confirm that you really want to delete 
 	this reservation. You are not guaranteed to be able to book again, as wait listed users may claim the 

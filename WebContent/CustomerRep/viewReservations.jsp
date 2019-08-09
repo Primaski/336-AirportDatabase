@@ -101,6 +101,7 @@
 			}while(pretickets.next());
 			out.println("</tr>");
 		}
+		con.close();
 	}catch(Exception e){
 		e.printStackTrace();
 	}

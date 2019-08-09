@@ -74,6 +74,7 @@
 			
 			}
 		}
+		con.close();
 	%>
 	<br />
 	<a href="customerRepIndex.jsp">Back to Rep Menu</a>

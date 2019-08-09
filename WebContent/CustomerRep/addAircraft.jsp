@@ -30,6 +30,7 @@
  	}
  	airports.beforeFirst();//hi
  	out.println("</select> <br/>");
+ 	con.close();
  %>
 
 		<input type="submit" value="Add Aircraft" />

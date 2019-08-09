@@ -67,6 +67,7 @@
 			price = result.getString(bookedClass + "Price");
 			departAir = result.getString("departAir");
 			arriveAir = result.getString("arriveAir");
+			con.close();
 		}else{
 			out.println("Flight does not exist! Try again."); return;
 		}
@@ -88,6 +89,7 @@
 	}catch(Exception e){
 		e.printStackTrace();
 	}
+	
 	%>
 </body>
 </html>

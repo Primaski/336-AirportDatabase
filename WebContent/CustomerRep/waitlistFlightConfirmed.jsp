@@ -194,7 +194,7 @@
 		}
 		
 		out.println("<a href=\"customerRepIndex.jsp\">Return to Main Menu</a>");
-		
+		con.close();
 		
 		
 	%>

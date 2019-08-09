@@ -178,6 +178,7 @@
 	}catch(Exception e){
 		e.printStackTrace();
 	}
+	con.close();
 	%>
 
 </body>

@@ -59,6 +59,7 @@
 				out.println("No entries were added.");
 			}
 		}
+		con.close();
 	%>
 	<br />
 	<a href="customerRepIndex.jsp">Back to Customer Rep</a>

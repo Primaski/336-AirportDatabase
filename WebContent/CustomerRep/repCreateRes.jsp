@@ -76,6 +76,7 @@
 				);
 		out.println("</select><br/>");
 		out.println("todo: number of stops, round trips, one way");
+		con.close();
 		%>
 		<br/>
 		<input type="submit" value="Submit"/>

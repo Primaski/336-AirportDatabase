@@ -86,6 +86,7 @@
 		"<input type =\"submit\" value = \"I'm sure, put me on the waitlist!\" " +
 		"</form>" + "</td><br/>"
 		);
+		con.close();
 	}catch(Exception e){
 		e.printStackTrace();
 	}

@@ -29,6 +29,7 @@
 			}
 			airports.beforeFirst();//hi
 			out.println("</select> <br/>");
+			con.close();
 		%>
 		<br /> <input type="submit" value="Return Waitlist for Selected Flight" />
 	</form>
