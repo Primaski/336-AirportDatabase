@@ -101,7 +101,7 @@
 			String stopso = "";
 			try{
 				stopso = (stops == null || stops.equals("")) ? "" :
-					" and noOfStops <= '" + stops + "'";
+					" and noOfStops <= '" + stops + "' ";
 			}catch(Exception e){
 				out.println(e.toString());
 				return;
@@ -127,7 +127,7 @@
 					    date +
 					    priceMax +
 					    reqAirline +
-					    stopso +
+					    stopso + " " +
 			"ORDER BY " + sort;
 			
 			//aout.println(query);

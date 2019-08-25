@@ -89,7 +89,7 @@
 			"<input type = \"hidden\" name = \"flightID\" " +
 			"value =\"" + result.getString("FlightID") + "\"/> " +
 			"<input type = \"hidden\" name = \"round\" value = 1>" +
-			"<input type =\"submit\" value = \"Book it!\" " +
+			"<input type = \"submit\" value = \"Book it!\"> " +
 			"</form>" + "</td>");
 			out.println("</tr>");
 		}while(result.next());
